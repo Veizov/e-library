@@ -9,6 +9,7 @@
 <%@ include file="../common/header.jsp" %>
 
 <div class="container main-content ">
-    Нямате права за достъп до тази страница
+    <spring:message code="text.security.access"/>
 </div>
+
 <%@ include file="../common/footer.jsp" %>

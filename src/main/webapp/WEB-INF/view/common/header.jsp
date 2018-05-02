@@ -70,7 +70,7 @@
                     <div>
                         <button id="log-in-btn" data-url="<c:url value="/login"/>"
                                 class="waves-effect waves-light btn light-blue darken-4 z-depth-3">
-                            <i class="material-icons left ">person</i>ВХОД
+                            <i class="material-icons left ">person</i><spring:message code="header.log.in"/>
                         </button>
                     </div>
                 </c:when>
@@ -84,18 +84,18 @@
                     <ul id='login-dropdown' class='dropdown-content'>
                         <li>
                             <a href="<c:url value="/profile"/>" class="light-blue-text darken-4">
-                                <i class="material-icons">assignment_ind</i><span>Моят профил</span>
+                                <i class="material-icons">assignment_ind</i><span><spring:message code="header.menu.profile"/></span>
                             </a>
                         </li>
                         <li>
                             <a href="<c:url value="/admin/menu"/>" class="light-blue-text darken-4">
-                                <i class="material-icons">security</i><span>Административен модул</span>
+                                <i class="material-icons">security</i><span><spring:message code="header.menu.admin"/></span>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="<c:url value="/logout"/>" class="light-blue-text darken-4">
-                                <i class="material-icons">exit_to_app</i>Изход
+                                <i class="material-icons">exit_to_app</i><spring:message code="header.menu.log.out"/>
                             </a>
                         </li>
                     </ul>
@@ -108,12 +108,12 @@
 
     <div class="main-menu">
         <nav>
-            <a href="<c:url value="/"/>" title="Начало">Начало</a>
-            <a href="<c:url value="/search"/>" title="">Електронни книги</a>
-            <a href="">Новини</a>
-            <a href="<c:url value="/feedback"/>" title="">Обратна връзка</a>
-            <a href="<c:url value="/contacts"/>" title="">Контакти</a>
-            <a href="" title="">Ръководство</a>
+            <a href="<c:url value="/"/>" title="Начало"><spring:message code="title.home"/></a>
+            <a href="<c:url value="/search"/>" title=""><spring:message code="title.books"/></a>
+            <a href=""><spring:message code="title.news"/></a>
+            <a href="<c:url value="/feedback"/>" title=""><spring:message code="title.feedback"/></a>
+            <a href="<c:url value="/contacts"/>" title=""><spring:message code="title.contacts"/></a>
+            <a href="" title=""><spring:message code="title.guide"/></a>
         </nav>
     </div>
     <div class="light-blue darken-4 narrow-subheader"></div>

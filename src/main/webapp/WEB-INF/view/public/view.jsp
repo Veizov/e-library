@@ -7,13 +7,6 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../common/header.jsp" %>
-<%--<div class="bg_breadcrumbs hidden-xs hidden-sm">--%>
-    <%--<div class="container">--%>
-        <%--<div class="breadcrumbs clearfix">--%>
-            <%--<a style="color: black" href="#">Начало</a>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-<%--</div>--%>
 
 <div class="container main-content">
     <div class="mT2em">

@@ -10,8 +10,8 @@
 <div class="bg_breadcrumbs z-depth-1">
     <div class="container">
         <div class="breadcrumbs clearfix">
-            <a class="breadcrumb-link" href="<c:url value="/"/>">Начало</a>
-            <span>Електронни книги</span>
+            <a class="breadcrumb-link" href="<c:url value="/"/>"><spring:message code="breadcrumb.home"/></a>
+            <span><spring:message code="title.books"/></span>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
 <div class="container main-content">
     <div class="z-depth-2 white mT2em p50px">
         <img width="70" height="70" class="right mT-15px" src="<c:url value="/resources/images/archive.png"/>" />
-        <div class="section-title">Електронни книги</div>
+        <div class="section-title"><spring:message code="title.books"/></div>
     </div>
 
 </div>

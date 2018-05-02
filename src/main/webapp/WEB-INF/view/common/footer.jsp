@@ -6,9 +6,9 @@
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">За електронната библиотека</h5>
+                <h5 class="white-text"><spring:message code="footer.title"/></h5>
 
-                <p class="grey-text text-lighten-4">Електронната библитека на Технически университет - София е създадена с цел по-лесен обмен на информация и техническа литература между преподаватели и студенти.  </p>
+                <p class="grey-text text-lighten-4"><spring:message code="footer.text"/></p>
                 <div>
                     <div class="float-left">
                         <img width="70" height="70" src="<c:url value="/resources/images/logo-tu-gray.png"/>"/>
@@ -24,23 +24,23 @@
                 </div>
             </div>
             <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Контакти</h5>
+                <h5 class="white-text"><spring:message code="footer.contacts"/></h5>
                 <ul>
                     <li class="mB5px">
                         <img class="img24 v-middle" src="<c:url value="/resources/images/ico_tel.png"/>"/>
-                        <span>0899838885</span>
+                        <span> <spring:message code="contacts.phone"/></span>
                     </li>
                     <li class="mB5px">
                         <img class="img24 v-middle" src="<c:url value="/resources/images/ico_mail.png"/>" />
-                        <span>denislav.veizov@duosoft.net</span>
+                        <span><spring:message code="contacts.mail"/></span>
                     </li>
                     <li class="mB5px">
                         <img class="img24 v-middle" src="<c:url value="/resources/images/ico_web.png"/>" />
-                        <a class="grey-text text-lighten-3" href="https://tu-sofia.bg/" target="_blank">tu-sofia.bg</a>
+                        <a class="grey-text text-lighten-3" href="https://tu-sofia.bg/" target="_blank"><spring:message code="contacts.websitr"/></a>
                     </li>
                     <li class="mB5px">
                         <img class="img24 v-middle" src="<c:url value="/resources/images/ico_address.png"/>" />
-                        <span>София, бул."Кл. Охридски" 8</span>
+                        <span><spring:message code="contacts.address"/></span>
                     </li>
                     <%--<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>--%>
                 </ul>
@@ -49,7 +49,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © 2018 D.S.V
+            © 2018
         </div>
     </div>
 </footer>

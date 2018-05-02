@@ -10,7 +10,7 @@
 <div class="bg_breadcrumbs hidden-xs hidden-sm">
     <div class="container">
         <div class="breadcrumbs clearfix">
-            <a class="breadcrumb-link" href="<c:url value="/"/>">Начало</a>
+            <a class="breadcrumb-link" href="<c:url value="/"/>"><spring:message code="breadcrumb.home"/></a>
         </div>
     </div>
 </div>

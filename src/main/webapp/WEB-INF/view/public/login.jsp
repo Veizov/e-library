@@ -11,7 +11,7 @@
 <div class="bg_breadcrumbs z-depth-1">
     <div class="container">
         <div class="breadcrumbs clearfix">
-            <a href="<c:url value="/"/>">Начало</a>
+            <a href="<c:url value="/"/>"><spring:message code="breadcrumb.home"/></a>
         </div>
     </div>
 </div>
@@ -25,27 +25,24 @@
                         <form>
                             <div class="input-field" id="username">
                                 <input type="text" value="denislavveizov@gmail.com" name="email"/>
-                                <label for="username">Имейл</label>
+                                <label for="username"><spring:message code="label.email"/></label>
                             </div>
                             <div class="input-field" id="password">
                                 <input type="password" value="mazohist" name="password"/>
-                                <label for="password">Парола</label>
+                                <label for="password"><spring:message code="label.password"/></label>
                             </div>
                             <c:if test="${error eq true}">
-                                <div class="message-error mB1em">Неразпознати име или парола !</div>
+                                <div class="message-error mB1em"><spring:message code="login.error.valid"/></div>
                             </c:if>
                             <div class="mB1em">
-                                <button type="submit" class="waves-effect waves-light btn light-blue darken-4"
-                                        id="loginbtn">Вход
-                                </button>
+                                <button type="submit" class="waves-effect waves-light btn light-blue darken-4"><spring:message code="label.log.in"/></button>
                             </div>
                             <div>
                                 <div>
-                                    <a href="">Забравена парола</a>
+                                    <a href="#"><spring:message code="btn.forgotten.pass"/></a>
                                 </div>
                                 <div>
-                                    <a href="<c:url value="/registration"/>" title="Регистрация">Създавне на нов
-                                        акаунт</a>
+                                    <a href="<c:url value="/registration"/>" title="<spring:message code="title.register"/>"><spring:message code="btn.create.account"/></a>
                                 </div>
                             </div>
                         </form>

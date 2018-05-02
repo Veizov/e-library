@@ -11,8 +11,8 @@
 <div class="bg_breadcrumbs z-depth-1">
     <div class="container">
         <div class="breadcrumbs clearfix">
-            <a class="breadcrumb-link" href="<c:url value="/"/>">Начало</a>
-            <span>Контакти</span>
+            <a class="breadcrumb-link" href="<c:url value="/"/>"><spring:message code="breadcrumb.home"/></a>
+            <span><spring:message code="title.contacts"/></span>
         </div>
     </div>
 </div>
@@ -20,27 +20,27 @@
 
     <div class="z-depth-2 white mT2em p50px">
         <img width="70" height="70" class="right mT-15px" src="<c:url value="/resources/images/maps.png"/>"/>
-        <div class="section-title">Контакти</div>
+        <div class="section-title"><spring:message code="title.contacts"/></div>
 
         <div class="mB1em row">
             <div class="display-inline-block col s6">
                 <div>
                     <i class="material-icons prefix v-middle">phone</i>
-                    <span>0899838885</span>
+                    <span><spring:message code="contacts.phone"/></span>
                 </div>
                 <div>
                     <i class="material-icons prefix v-middle">mail</i>
-                    <span>denislav.veizov@duosfot.net</span>
+                    <span><spring:message code="contacts.mail"/></span>
                 </div>
             </div>
             <div class="display-inline-block col s6">
                 <div>
                     <i class="material-icons prefix v-middle">website</i>
-                    <a class="black-text text-lighten-3" href="https://tu-sofia.bg/" target="_blank">tu-sofia.bg</a>
+                    <a class="black-text text-lighten-3" href="https://tu-sofia.bg/" target="_blank"><spring:message code="contacts.websitr"/></a>
                 </div>
                 <div>
                     <i class="material-icons prefix v-middle">location_on</i>
-                    <span>София, бул."Кл. Охридски" 8</span>
+                    <span><spring:message code="contacts.address"/></span>
                 </div>
             </div>
         </div>

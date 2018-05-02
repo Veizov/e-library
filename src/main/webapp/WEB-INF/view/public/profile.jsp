@@ -13,15 +13,15 @@
 <div class="bg_breadcrumbs hidden-xs hidden-sm">
     <div class="container">
         <div class="breadcrumbs clearfix">
-            <a class="breadcrumb-link" href="<c:url value="/"/>">Начало</a>
-            <span>Профил</span>
+            <a class="breadcrumb-link" href="<c:url value="/"/>"><spring:message code="breadcrumb.home"/></a>
+            <span><spring:message code="title.profile"/></span>
         </div>
     </div>
 </div>
 
 <div class="container main-content">
     <div class="section-title">
-        Профил
+        <spring:message code="title.profile"/>
     </div>
 </div>
 <%@ include file="../common/footer.jsp" %>
