@@ -17,6 +17,8 @@ $(document).ready(function () {
     }, 10);
 
     $('input#input_text, textarea#textarea1').characterCounter();
+
+    $('select').material_select();
 });
 
 function myTimer() {
@@ -29,6 +31,3 @@ $("body").on("click", "#log-in-btn", function (e) {
     var url = $(this).data('url');
     window.location.href = url;
 });
-
-
-

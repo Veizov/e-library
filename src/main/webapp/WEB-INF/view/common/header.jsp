@@ -28,7 +28,19 @@
 </head>
 
 <body background="">
+
+<div class="preloader" style="display: none">
+    <div class="pre-container">
+        <div class="logo-circle">
+         <img class="preloader-icon" src="<c:url value="/resources/images/logo-tu-white.png" />">
+        </div>
+        <%--<div class="loading-text">--%>
+            <%--<p>Моля изчакайте...</p>--%>
+        <%--</div>--%>
+    </div>
+</div>
 <header>
+
     <sec:authorize access="hasRole('ADMIN')" var="adminViewer"/>
     <sec:authentication var="principal" property="principal"/>
 

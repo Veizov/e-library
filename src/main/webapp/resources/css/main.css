@@ -70,6 +70,10 @@
     margin-left: 4em;
 }
 
+.mL20px-i {
+    margin-left: 20px !important;
+}
+
 .img22 {
     max-width: 22px;
     max-height: 22px;
@@ -116,4 +120,12 @@
 
 .v-middle {
     vertical-align: middle;
+}
+
+.mB0{
+    margin-bottom: 0;
+}
+
+.mT30px{
+    margin-top: 30px;
 }

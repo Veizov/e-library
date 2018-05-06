@@ -29,7 +29,7 @@
                 </div>
                 <div class="collapsible-body">
                     <span><spring:message code="text.add.new.book.admin"/></span>
-                    <a href="#" class="right waves-effect waves-light btn light-blue darken-4" id="add-book-btn"><spring:message code="btn.add"/></a>
+                    <a href="<c:url value="/admin/create-book"/>" class="right waves-effect waves-light btn light-blue darken-4" id="add-book-btn"><spring:message code="btn.add"/></a>
                 </div>
             </li>
             <li>
