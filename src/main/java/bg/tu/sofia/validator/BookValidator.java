@@ -26,7 +26,6 @@ public class BookValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "empty.field.valid");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "author", "empty.field.valid");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "empty.field.valid");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cover.filename", "empty.field.valid");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "file.filename", "empty.field.valid");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "category.id", "empty.field.valid");
 

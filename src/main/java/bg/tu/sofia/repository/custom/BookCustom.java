@@ -1,16 +1,11 @@
-package bg.tu.sofia.service;
-
+package bg.tu.sofia.repository.custom;
 
 import bg.tu.sofia.filter.SearchBookFilter;
 import bg.tu.sofia.model.Book;
 
 import java.util.List;
 
-public interface BookService {
-
-    Book save(Book book);
-
-    List<Book> findAll();
+public interface BookCustom {
 
     List<Book> findBooks(SearchBookFilter filter, Integer page, Integer pageSize);
 

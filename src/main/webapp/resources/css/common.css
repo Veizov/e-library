@@ -248,7 +248,6 @@ span.gototop {
     height: 100px !important;
 }
 
-
 /*LOADER*/
 
 .preloader {
@@ -257,7 +256,7 @@ span.gototop {
     left: 0;
     right: 0;
     bottom: 0;
-    background:rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     overflow: hidden;
     z-index: 99999;
 }
@@ -311,7 +310,7 @@ span.gototop {
     margin-left: 10px;
 }
 
-.preloader-icon{
+.preloader-icon {
     width: 60px;
     margin-top: 20px;
 }
@@ -359,4 +358,116 @@ span.gototop {
         transition: box-shadow 0.4s ease-in-out;
     }
 }
+
 /*LOADER*/
+/* --------PAGINATION --------*/
+.paginator select {
+    display: inline-block;
+    width: auto;
+    height: 26px;
+    padding: 2px 4px;
+}
+
+.pager {
+    padding-left: 0;
+    margin: 20px 0;
+    list-style: none;
+    text-align: center;
+}
+
+.pager li {
+    display: inline;
+    float: none;
+}
+
+.pager li > a, .pager li > span {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    text-decoration: none;
+}
+
+.pager li > a:hover, .pager li > a:focus {
+    text-decoration: none;
+    background-color: #eee
+}
+
+.pager .next > a, .pager .next > span {
+    float: right;
+    color: #009dde;
+}
+
+.pager .previous > a, .pager .previous > span {
+    float: left;
+    color: #009dde;
+}
+
+.paginator nav {
+    margin-top: 0;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    text-align: center;
+    color: black;
+    height: auto;
+    line-height: normal;
+    -webkit-box-shadow: none;
+}
+
+.pager .disabled > a, .pager .disabled > a:hover, .pager .disabled > a:focus, .pager .disabled > span {
+    color: #777;
+    background-color: #fff;
+    cursor: not-allowed
+}
+
+.materialboxed.table-cover-image.initialized.active {
+    max-width: none;
+    max-height: none;
+}
+
+.table-cover-image {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.alert {
+    padding: 15px;
+    padding-right: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.table-sorter {
+    background-image: url(../images/sort.png);
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding: 4px 4px 4px 25px;
+    white-space: normal;
+    cursor: pointer;
+}

@@ -11,7 +11,8 @@ $("body").on("change", "#image-file", function (e) {
         url: '/e-library/admin/validate-uploaded-file',
         type: 'POST',
         data: {
-            fileName: $uploadFile.val()
+            fileName: $uploadFile.val(),
+            size: $uploadFile.get(0).files[0].size
         },
         success: function (data) {
             if (data.length > 0) {
@@ -32,6 +33,7 @@ $("body").on("change", "#image-file", function (e) {
         },
         error: function () {
             $uploadFile.val('');
+            $('#error-modal').modal('open');
         }
     });
 });
@@ -71,6 +73,7 @@ $("body").on("change", "#book-file", function (e) {
         },
         error: function () {
             $uploadFile.val('');
+            $('#error-modal').modal('open');
         }
     });
 });

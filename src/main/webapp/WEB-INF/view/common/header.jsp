@@ -39,6 +39,13 @@
         <%--</div>--%>
     </div>
 </div>
+<!-- Modal Structure -->
+<div id="error-modal" class="modal">
+    <div class="modal-content">
+        <h4 class="align-center red-text">Грешка</h4>
+        <p class="align-center"><spring:message code="modal.error.msg"/></p>
+    </div>
+</div>
 <header>
 
     <sec:authorize access="hasRole('ADMIN')" var="adminViewer"/>
@@ -121,7 +128,7 @@
     <div class="main-menu">
         <nav>
             <a href="<c:url value="/"/>" title="Начало"><spring:message code="title.home"/></a>
-            <a href="<c:url value="/search"/>" title=""><spring:message code="title.books"/></a>
+            <a href="<c:url value="/books"/>" title=""><spring:message code="title.books"/></a>
             <a href=""><spring:message code="title.news"/></a>
             <a href="<c:url value="/feedback"/>" title=""><spring:message code="title.feedback"/></a>
             <a href="<c:url value="/contacts"/>" title=""><spring:message code="title.contacts"/></a>
