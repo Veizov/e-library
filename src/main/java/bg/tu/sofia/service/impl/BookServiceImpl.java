@@ -13,6 +13,7 @@ import bg.tu.sofia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -43,5 +44,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public int countBooks(SearchBookFilter filter) {
         return bookRepository.countBooks(filter);
+    }
+
+    @Override
+    public List<Book> findByTitleAndFileSize(String title, Integer fileSize) {
+        if (StringUtils.isEmpty(title) || null == fileSize)
+            return null;
+        return bookRepository.findByTitleAndFileSize(title, fileSize);
     }
 }

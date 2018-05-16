@@ -1,12 +1,14 @@
 package bg.tu.sofia.controller;
 
-import bg.tu.sofia.filter.SearchBookFilter;
 import bg.tu.sofia.model.Blobs;
 import bg.tu.sofia.model.Book;
 import bg.tu.sofia.model.BookCategory;
 import bg.tu.sofia.service.BookCategoryService;
 import bg.tu.sofia.service.BookService;
+import bg.tu.sofia.utils.FileUtils;
 import bg.tu.sofia.validator.BookValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -20,10 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -32,8 +33,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class CreateBookController {
-    private static final Integer MAX_BOOK_COVER_FILE_SIZE = 1048576; //1 MB
+    private static Logger LOG = LoggerFactory.getLogger(CreateBookController.class);
+    private static final Integer MAX_BOOK_COVER_FILE_SIZE = 1_048_576; //1 MB
+    private static final Integer MAX_BOOKS_FOLDER_SIEZE = 1_073_741_824;//1 GB
     private static final Integer MIN_BYTE_ARRAY_LENGTH = 1;
+
+    private Boolean inProgress = false;
+    private Integer progress = 0;
 
     @Autowired
     private MessageSource messageSource;
@@ -63,15 +69,20 @@ public class CreateBookController {
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
     public String createBook(RedirectAttributes redirectAttributes, HttpServletRequest request, @ModelAttribute Book book, BindingResult bindingResult,
                              @RequestParam("imageFile") MultipartFile imageFileRequest,
-                             @RequestParam("bookFile") MultipartFile bookFileRequest) throws IOException {
+                             @RequestParam("bookFile") MultipartFile bookFileRequest) {
 
-        Blobs coverImage = (Blobs) request.getSession().getAttribute("coverImage");
-        fillBlob(imageFileRequest, coverImage);
-        book.setCover(coverImage);
+        try {
+            Blobs coverImage = (Blobs) request.getSession().getAttribute("coverImage");
+            fillBlob(imageFileRequest, coverImage);
+            book.setCover(coverImage);
 
-        Blobs bookFile = (Blobs) request.getSession().getAttribute("bookFile");
-        fillBlob(bookFileRequest, bookFile);
-        book.setFile(bookFile);
+            Blobs bookFile = (Blobs) request.getSession().getAttribute("bookFile");
+            fillBlob(bookFileRequest, bookFile);
+            book.setFile(bookFile);
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage(), e);
+        }
 
         bookValidator.validate(book, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -126,6 +137,77 @@ public class CreateBookController {
             blobs.setCreatedDate(new Date());
             blobs.setFilesize((int) imageFile.getSize());
         }
+    }
+
+    @RequestMapping(value = "/create-books-folder", method = RequestMethod.GET)
+    public String createBooksFromFolder(HttpServletRequest request, Model model) {
+        model.addAttribute("inProgress", inProgress);
+        return "admin/create-books-folder";
+    }
+
+    @RequestMapping(value = "/create-books-folder", method = RequestMethod.POST)
+    public String createBooksFromFolder(Model model, @RequestParam("folder") String folderPath) {
+        if (!inProgress) {
+
+            inProgress = true;
+            progress = 0;
+
+            try {
+                File folder = new File(folderPath.trim());
+                long folderSize = FileUtils.folderSize(folder);
+
+                if (MAX_BOOKS_FOLDER_SIEZE < folderSize)
+                    throw new RuntimeException("Folder size is greater than 1 GB ! Current size: " + ((folderSize / 1024) / 1024) + " MB");
+
+                List<File> files = FileUtils.getPdfFiles(folder);
+                if (!CollectionUtils.isEmpty(files)) {
+                    Map<String, Integer> importedBooks = new HashMap<>();
+                    Map<String, Integer> notImportedBooks = new HashMap<>();
+
+                    int total = files.size();
+                    for (int i = 0; i < files.size(); i++) {
+                        progress = (100 * (i + 1) / total);
+                        System.out.println(progress);
+                        File file = files.get(i);
+                        String bookTitle = file.getName().replaceAll(".pdf", "");
+                        List<Book> sameBooks = bookService.findByTitleAndFileSize(bookTitle, Math.toIntExact(file.length()));
+                        if (CollectionUtils.isEmpty(sameBooks)) {
+                            Book book = new Book();
+                            Blobs blobs = FileUtils.convertPdfFile(file);
+                            book.setFile(blobs);
+                            book.setTitle(bookTitle);
+                            bookService.save(book);
+                            importedBooks.put(file.getName(), Math.toIntExact(file.length()));
+                        } else
+                            notImportedBooks.put(file.getName(), Math.toIntExact(file.length()));
+                    }
+                    model.addAttribute("importedBooks", importedBooks);
+                    model.addAttribute("notimported", notImportedBooks);
+                } else
+                    throw new RuntimeException("There are no PDF files in folder !");
+
+                inProgress = false;
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+                throw new RuntimeException("An error occurred while importing the file ! Please check folder path !");
+            } finally {
+                inProgress = false;
+                progress = 0;
+            }
+
+        } else
+            model.addAttribute("alreadyStarted", true);
+
+        return "admin/books-folder-content";
+    }
+
+    @RequestMapping(value = "/get-books-upload-progress", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getProgress() {
+        if (inProgress)
+            return progress;
+        else
+            return null;
     }
 
 }

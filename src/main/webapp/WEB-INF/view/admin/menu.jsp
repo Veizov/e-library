@@ -34,6 +34,16 @@
             </li>
             <li>
                 <div class="collapsible-header">
+                    <i class="material-icons">create_new_folder</i>
+                    <span><spring:message code="label.new.book.folder"/></span>
+                </div>
+                <div class="collapsible-body">
+                    <span><spring:message code="text.add.new.book.folder.admin"/></span>
+                    <a href="<c:url value="/admin/create-books-folder"/>" class="right waves-effect waves-light btn light-blue darken-4" id="add-book-folder-btn"><spring:message code="btn.add"/></a>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
                     <i class="material-icons">mode_edit</i>
                     <span><spring:message code="label.edit.book"/></span>
                 </div>

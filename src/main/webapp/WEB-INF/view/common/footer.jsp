@@ -54,7 +54,7 @@
     </div>
 </footer>
 <script src='<c:url value="/resources/js/main.js"/>' type="text/javascript"></script>
-
+<script src='<c:url value="/resources/js/folder-books.js"/>' type="text/javascript"></script>
 
 </body>
 </html>

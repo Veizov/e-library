@@ -16,4 +16,5 @@ public interface BookService {
 
     int countBooks(SearchBookFilter filter);
 
+    List<Book> findByTitleAndFileSize(String title,Integer fileSize);
 }
