@@ -13,9 +13,16 @@
     <div class="container">
         <div class="breadcrumbs clearfix">
             <a class="breadcrumb-link" href="<c:url value="/"/>"><spring:message code="breadcrumb.home"/></a>
-            <a class="breadcrumb-link" href="<c:url value="/admin/menu"/>"><spring:message
-                    code="title.administration.module"/></a>
-            <span><spring:message code="title.create.book"/></span>
+            <c:choose>
+                <c:when test="${not empty book.id}">
+                    <a class="breadcrumb-link" href="<c:url value="/books"/>"><spring:message code="title.books"/></a>
+                    <span>Редактиране на ${book.title}</span>
+                </c:when>
+                <c:otherwise>
+                    <a class="breadcrumb-link" href="<c:url value="/admin/menu"/>"><spring:message code="title.administration.module"/></a>
+                    <span> <spring:message code="title.create.book"/></span>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
@@ -24,7 +31,14 @@
     <div class="z-depth-2 white mT2em p50px">
         <img width="70" height="70" class="right mT-15px" src="<c:url value="/resources/images/open-book.png"/>"/>
         <div class="section-title">
-            <spring:message code="title.create.book"/>
+            <c:choose>
+                <c:when test="${not empty book.id}">
+                    Редактиране на ${book.title}
+                </c:when>
+                <c:otherwise>
+                    <spring:message code="title.create.book"/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div>
             <form:form cssClass="col s12" modelAttribute="book" action="${createBookURL}" method="post" enctype="multipart/form-data">
@@ -53,7 +67,7 @@
                             <c:choose>
                                 <c:when test="${not empty book.file.filename}">
                                     <img src="<c:url value="/resources/images/if_pdf_65920.png"/>"/>
-                                    <p><c:out value="${book.file.filename}"/></p>
+                                    <p class="w500px"><c:out value="${book.file.filename}"/></p>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="align-center mT30px"><spring:message code="label.file"/></div>
@@ -116,6 +130,7 @@
                         <i class="material-icons left">check</i><spring:message code="btn.save"/>
                     </button>
                 </div>
+                <input type="hidden" name="id" value="${book.id}">
             </form:form>
         </div>
     </div>

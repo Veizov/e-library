@@ -9,4 +9,7 @@ public interface BookCategoryService {
     BookCategory save(BookCategory book);
 
     List<BookCategory> findAll();
+
+    BookCategory findByNameEn(String nameEn);
+
 }

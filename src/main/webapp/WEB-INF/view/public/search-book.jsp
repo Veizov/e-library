@@ -34,12 +34,12 @@
                     <label for="author-filter"><spring:message code="label.author"/></label>
                 </div>
                 <div class="input-field col s3">
-                    <input type="text" id="year-from-filter" class="books-filter">
-                    <label for="year-from-filter"><spring:message code="label.year.from"/></label>
+                    <input type="text" id="date-from-filter" class="books-filter datepicker">
+                    <label for="date-from-filter"><spring:message code="label.date.from"/></label>
                 </div>
                 <div class="input-field col s3">
-                    <input type="text" id="year-to-filter" class="books-filter">
-                    <label for="year-to-filter"><spring:message code="label.year.to"/></label>
+                    <input type="text" id="date-to-filter" class="books-filter datepicker">
+                    <label for="date-to-filter"><spring:message code="label.date.to"/></label>
                 </div>
             </div>
             <div class="row">
@@ -70,6 +70,22 @@
 
     </div>
 </div>
+
+<!-- Modal Structure -->
+<div id="delete-book-modal" class="modal">
+
+    <div class="modal-content align-center">
+        <h4 class="align-center red-text">
+            <img class="img80" src="<c:url value="/resources/images/warning-icon.png"/>">
+        </h4>
+        <p class="size-20px"><spring:message code="modal.delete.book.msg"/></p>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0);" class="modal-close waves-effect waves-light btn-flat bold"><spring:message code="btn.cancel"/></a>
+        <a id="delete-book-confirm-btn" href="javascript:void(0);" class="modal-close waves-effect waves-light btn-flat bold"><spring:message code="btn.delete"/></a>
+    </div>
+</div>
+
 <%@ include file="../common/footer.jsp" %>
 
 <script src='<c:url value="/resources/js/book-table.js"/>' type="text/javascript"></script>

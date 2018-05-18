@@ -119,6 +119,7 @@ CREATE TABLE public.book
   category integer,
   file integer,
   cover integer,
+  created_date timestamp with time zone NOT NULL DEFAULT now(),
   CONSTRAINT book_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -145,15 +146,6 @@ ALTER TABLE public.book
       REFERENCES public.blobs (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
--- Foreign Key: public."FK_category_book"
-
--- ALTER TABLE public.book DROP CONSTRAINT "FK_category_book";
-
-ALTER TABLE public.book
-  ADD CONSTRAINT "FK_category_book" FOREIGN KEY (category)
-      REFERENCES public.book_category (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
 
 -- Table: public.book_category
 
@@ -163,6 +155,7 @@ CREATE TABLE public.book_category
 (
   id serial NOT NULL,
   name character varying(255),
+  name_en character varying(255),
   CONSTRAINT book_category_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -170,3 +163,14 @@ WITH (
 );
 ALTER TABLE public.book_category
   OWNER TO postgres;
+
+-- Foreign Key: public."FK_category_book"
+
+-- ALTER TABLE public.book DROP CONSTRAINT "FK_category_book";
+
+ALTER TABLE public.book
+  ADD CONSTRAINT "FK_category_book" FOREIGN KEY (category)
+      REFERENCES public.book_category (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+INSERT INTO public.book_category  (name,name_en) VALUES ('Друго','Other');

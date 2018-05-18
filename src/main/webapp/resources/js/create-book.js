@@ -68,7 +68,7 @@ $("body").on("change", "#book-file", function (e) {
                 var originalFileName = fullFileName.substring(fullFileName.lastIndexOf("\\")+1,fullFileName.length);
 
                 $bookFileLabel.append('<img src="/e-library/resources/images/if_pdf_65920.png" />');
-                $bookFileLabel.append('<p>' + originalFileName + '</p>');
+                $bookFileLabel.append('<p class="w500px">' + originalFileName + '</p>');
             }
         },
         error: function () {

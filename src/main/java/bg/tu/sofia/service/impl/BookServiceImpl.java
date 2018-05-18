@@ -3,22 +3,14 @@ package bg.tu.sofia.service.impl;
 
 import bg.tu.sofia.filter.SearchBookFilter;
 import bg.tu.sofia.model.Book;
-import bg.tu.sofia.model.Role;
-import bg.tu.sofia.model.User;
 import bg.tu.sofia.repository.BookRepository;
-import bg.tu.sofia.repository.RoleRepository;
-import bg.tu.sofia.repository.UserRepository;
 import bg.tu.sofia.service.BookService;
-import bg.tu.sofia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -29,6 +21,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book save(Book book) {
         return bookRepository.save(book);
+    }
+    @Override
+    public Book saveAndFlush(Book book) {
+        return bookRepository.saveAndFlush(book);
     }
 
     @Override
@@ -51,5 +47,18 @@ public class BookServiceImpl implements BookService {
         if (StringUtils.isEmpty(title) || null == fileSize)
             return null;
         return bookRepository.findByTitleAndFileSize(title, fileSize);
+    }
+
+    @Override
+    public Book findById(Integer id) {
+        if (null == id)
+            return null;
+        return bookRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(Book book) {
+        if(Objects.nonNull(book))
+            bookRepository.delete(book);
     }
 }

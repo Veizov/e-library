@@ -477,7 +477,6 @@ span.gototop {
     font-weight: bold;
 }
 
-
 .tabs .tab a:hover {
     color: #01579b;
 }
@@ -490,3 +489,42 @@ span.gototop {
     background-color: #01579b;
 }
 
+.picker__date-display {
+    background-color: #01579b;
+}
+
+.picker__day.picker__day--today {
+    color: red;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    background-color: #01579b;
+}
+
+.picker__close {
+    color: #01579b !important;
+}
+
+.picker__today {
+    color: #01579b !important;
+}
+
+.clockpicker-tick:hover {
+    background: #01579b !important;
+}
+
+.clockpicker-canvas line {
+    stroke: #01579b !important;
+}
+
+.clockpicker-canvas-bearing {
+    fill: #01579b !important;
+}
+
+.clockpicker-canvas-bg {
+    fill: #01579b !important;
+}
+
+button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus,.picker__nav--prev:hover, .picker__nav--next:hover {
+    background-color: #d1d1d1;
+}

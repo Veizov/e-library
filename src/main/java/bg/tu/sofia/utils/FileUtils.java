@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FileUtils {
     private static Logger LOG = LoggerFactory.getLogger(FileUtils.class);
@@ -42,6 +43,16 @@ public class FileUtils {
                 files.add(file);
         }
         return files;
+    }
+
+    public static List<File> getPdfFiles(Path path, int skip, Integer limit) throws IOException {
+        return Files.walk(path)
+                .filter(p -> p.toFile().isFile())
+                .filter(p -> p.toFile().getName().toLowerCase().endsWith(".pdf"))
+                .skip(skip)
+                .limit(limit)
+                .map(Path::toFile)
+                .collect(Collectors.toList());
     }
 
     public static Blobs convertPdfFile(File file) throws IOException {

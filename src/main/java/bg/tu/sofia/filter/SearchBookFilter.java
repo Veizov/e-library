@@ -1,5 +1,7 @@
 package bg.tu.sofia.filter;
 
+import java.util.Date;
+
 /**
  * Created by denislav.veizov on 2.2.2018 г..
  */
@@ -13,6 +15,8 @@ public class SearchBookFilter {
     private String category;
     private String sortColumn;
     private String sortOrder;
+    private Date dateFrom;
+    private Date dateTo;
 
 
     public String getTitle() {
@@ -78,5 +82,21 @@ public class SearchBookFilter {
 
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 }

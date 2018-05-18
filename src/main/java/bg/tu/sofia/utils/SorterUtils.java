@@ -12,7 +12,8 @@ public class SorterUtils {
         Map<String, String> map = new HashMap<>();
         map.put("title", "l.title");
         map.put("category", "l.category.name");
-        map.put("year", "l.year");
+        map.put("date", "l.createdDate");
+        map.put("size", "l.file.filesize");
         return map;
     }
 

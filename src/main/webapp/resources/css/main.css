@@ -26,6 +26,10 @@
     clear: both;
 }
 
+.w130px {
+    width: 130px !important;
+}
+
 .w150px {
     width: 150px;
 }
@@ -88,8 +92,10 @@
     max-width: 70px;
     max-height: 70px;
 }
-
-
+.img80 {
+    max-width: 80px;
+    max-height: 80px;
+}
 .align-center {
     text-align: center;
 }
@@ -126,22 +132,42 @@
     vertical-align: middle;
 }
 
-.mB0{
+.mB0 {
     margin-bottom: 0;
 }
 
-.mT30px{
+.mT30px {
     margin-top: 30px;
 }
 
-.h20px{
+.h20px {
     height: 20px;
 }
 
-.w10{
+.w10 {
     width: 10%;
 }
 
-.w5{
+.w5 {
     width: 5%;
+}
+
+.w50px {
+    width: 50px;
+}
+
+.mW300px{
+    min-width: 300px;
+}
+
+.size-20px{
+    font-size: 20px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.w500px{
+    width: 500px;
 }

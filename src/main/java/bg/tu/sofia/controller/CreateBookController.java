@@ -6,6 +6,7 @@ import bg.tu.sofia.model.BookCategory;
 import bg.tu.sofia.service.BookCategoryService;
 import bg.tu.sofia.service.BookService;
 import bg.tu.sofia.utils.FileUtils;
+import bg.tu.sofia.utils.Utils;
 import bg.tu.sofia.validator.BookValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -35,8 +39,10 @@ import java.util.*;
 public class CreateBookController {
     private static Logger LOG = LoggerFactory.getLogger(CreateBookController.class);
     private static final Integer MAX_BOOK_COVER_FILE_SIZE = 1_048_576; //1 MB
-    private static final Integer MAX_BOOKS_FOLDER_SIEZE = 1_073_741_824;//1 GB
+    private static final Integer MAX_BOOKS_FOLDER_SIZE = 524_288_000; //500 MB
     private static final Integer MIN_BYTE_ARRAY_LENGTH = 1;
+    private static final Integer PDF_FILES_PER_ITERATION = 5;
+    private static final String DEFAULT_CATEGORY = "Other";
 
     private Boolean inProgress = false;
     private Integer progress = 0;
@@ -54,11 +60,19 @@ public class CreateBookController {
     private BookCategoryService categoryService;
 
     @RequestMapping(value = "/create-book", method = RequestMethod.GET)
-    public String createBook(HttpServletRequest request, Model model) {
-        if (!model.containsAttribute("book")) {
+    public String createBook(HttpServletRequest request, Model model, @RequestParam(value = "id", required = false) Integer bookID) {
+        Book book = bookService.findById(bookID);
+
+        if (!model.containsAttribute("book") && book == null) {
             request.getSession().setAttribute("coverImage", new Blobs());
             request.getSession().setAttribute("bookFile", new Blobs());
             model.addAttribute("book", new Book());
+        }
+
+        if (!model.containsAttribute("book") && book != null) {
+            request.getSession().setAttribute("coverImage", book.getCover() != null ? book.getCover() : new Blobs());
+            request.getSession().setAttribute("bookFile", book.getFile() != null ? book.getFile() : new Blobs());
+            model.addAttribute("book", book);
         }
 
         List<BookCategory> categories = categoryService.findAll();
@@ -88,17 +102,35 @@ public class CreateBookController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.book", bindingResult);
             redirectAttributes.addFlashAttribute("book", book);
+
+            if (book.getId() != null)
+                redirectAttributes.addAttribute("id", book.getId());
+
             return "redirect:/admin/create-book";
         } else {
             byte[] bookCoverContent = book.getCover().getContent();
             if (null == bookCoverContent || MIN_BYTE_ARRAY_LENGTH > bookCoverContent.length)
                 book.setCover(null);
 
+            book.setCreatedDate(new Date());
             bookService.save(book);
+
             request.getSession().removeAttribute("coverImage");
             request.getSession().removeAttribute("bookFile");
-            return "redirect:/admin/menu";
+            return "redirect:/books";
         }
+    }
+
+    @RequestMapping(value = "/edit-book", method = RequestMethod.GET)
+    public String editBook(Model model,
+                           RedirectAttributes redirectAttributes,
+                           HttpServletRequest request,
+                           @RequestParam("bookID") Integer bookID) {
+        Book book = bookService.findById(bookID);
+        if (Objects.nonNull(book))
+            redirectAttributes.addFlashAttribute("book", book);
+
+        return "redirect:/admin/create-book";
     }
 
     @RequestMapping("/validate-uploaded-file")
@@ -153,33 +185,39 @@ public class CreateBookController {
             progress = 0;
 
             try {
-                File folder = new File(folderPath.trim());
-                long folderSize = FileUtils.folderSize(folder);
+                Path path = Paths.get(folderPath.trim());
+                long folderSize = FileUtils.folderSize(path.toFile());
 
-                if (MAX_BOOKS_FOLDER_SIEZE < folderSize)
-                    throw new RuntimeException("Folder size is greater than 1 GB ! Current size: " + ((folderSize / 1024) / 1024) + " MB");
+                if (MAX_BOOKS_FOLDER_SIZE < folderSize)
+                    throw new RuntimeException("Folder size is greater than 500 MB ! Current size: " + ((folderSize / 1024) / 1024) + " MB");
 
-                List<File> files = FileUtils.getPdfFiles(folder);
-                if (!CollectionUtils.isEmpty(files)) {
+                int pdfFilesCount = Math.toIntExact(Files.walk(path)
+                        .filter(p -> p.toFile().isFile())
+                        .filter(p -> p.toFile().getName().toLowerCase().endsWith(".pdf"))
+                        .count());
+
+                if (pdfFilesCount > 0) {
+                    BookCategory other = categoryService.findByNameEn(DEFAULT_CATEGORY);
+
                     Map<String, Integer> importedBooks = new HashMap<>();
                     Map<String, Integer> notImportedBooks = new HashMap<>();
 
-                    int total = files.size();
-                    for (int i = 0; i < files.size(); i++) {
-                        progress = (100 * (i + 1) / total);
-                        System.out.println(progress);
-                        File file = files.get(i);
-                        String bookTitle = file.getName().replaceAll(".pdf", "");
-                        List<Book> sameBooks = bookService.findByTitleAndFileSize(bookTitle, Math.toIntExact(file.length()));
-                        if (CollectionUtils.isEmpty(sameBooks)) {
-                            Book book = new Book();
-                            Blobs blobs = FileUtils.convertPdfFile(file);
-                            book.setFile(blobs);
-                            book.setTitle(bookTitle);
-                            bookService.save(book);
-                            importedBooks.put(file.getName(), Math.toIntExact(file.length()));
-                        } else
-                            notImportedBooks.put(file.getName(), Math.toIntExact(file.length()));
+                    int maxIterations = (pdfFilesCount / PDF_FILES_PER_ITERATION) + 1;
+                    for (int skip, i = 0; i < maxIterations ; i++) {
+                        skip = i * PDF_FILES_PER_ITERATION;
+                        List<File> filePart = FileUtils.getPdfFiles(path, skip,PDF_FILES_PER_ITERATION);
+                        for (int j = 0; j < filePart.size(); j++) {
+                            progress = (100 * (j + skip + 1) / pdfFilesCount);
+                            File file = filePart.get(j);
+                            String bookTitle = file.getName().replaceAll(".pdf", "");
+                            List<Book> sameBooks = bookService.findByTitleAndFileSize(bookTitle, Math.toIntExact(file.length()));
+                            if (CollectionUtils.isEmpty(sameBooks)) {
+                                Book book = Utils.convertFileToBook(file, bookTitle, other);
+                                bookService.saveAndFlush(book);
+                                importedBooks.put(file.getName(), Math.toIntExact(file.length()));
+                            } else
+                                notImportedBooks.put(file.getName(), Math.toIntExact(file.length()));
+                        }
                     }
                     model.addAttribute("importedBooks", importedBooks);
                     model.addAttribute("notimported", notImportedBooks);

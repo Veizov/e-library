@@ -1,25 +1,25 @@
 package bg.tu.sofia.controller;
 
 import bg.tu.sofia.filter.SearchBookFilter;
-import bg.tu.sofia.model.Blobs;
 import bg.tu.sofia.model.Book;
-import bg.tu.sofia.model.BookCategory;
-import bg.tu.sofia.service.BlobsService;
 import bg.tu.sofia.service.BookCategoryService;
 import bg.tu.sofia.service.BookService;
 import bg.tu.sofia.service.UserService;
-import bg.tu.sofia.utils.FileUtils;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -39,6 +39,11 @@ public class PublicController {
 
     @Autowired
     private BookCategoryService categoryService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd.MM.yyyy"), true, 10));
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String register(Model model) {
@@ -110,5 +115,20 @@ public class PublicController {
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("sortOrder", filter.getSortOrder());
         return "public/search-book-table";
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/delete-book", method = RequestMethod.POST)
+    public String deleteBook(HttpServletRequest request, Model model,
+                             @RequestParam("page") Integer page,
+                             @RequestParam("pageSize") Integer pageSize,
+                             @RequestParam("bookID") Integer bookID) {
+        Book book = bookService.findById(bookID);
+        if (Objects.nonNull(book))
+            bookService.delete(book);
+
+        SearchBookFilter sessionFilter = (SearchBookFilter) request.getSession().getAttribute("searchBookFilter");
+        return getBookListFiltered(model, request, sessionFilter, pageSize, page, true);
     }
 }

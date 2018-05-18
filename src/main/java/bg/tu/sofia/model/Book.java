@@ -1,6 +1,7 @@
 package bg.tu.sofia.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,7 @@ public class Book {
     private BookCategory category;
     private Blobs file;
     private Blobs cover;
+    private Date createdDate;
 
     @Id
     @GeneratedValue(generator = "book_id_seq")
@@ -95,6 +97,17 @@ public class Book {
 
     public void setCategory(BookCategory category) {
         this.category = category;
+    }
+
+    @Basic
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

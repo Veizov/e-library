@@ -48,7 +48,7 @@
 </div>
 <header>
 
-    <sec:authorize access="hasRole('ADMIN')" var="adminViewer"/>
+    <sec:authorize access="hasAuthority('ADMIN')" var="isUserAdmin"/>
     <sec:authentication var="principal" property="principal"/>
 
     <div class="container tbl">
@@ -96,7 +96,7 @@
                 <c:otherwise>
                     <sec:authentication var="username" property="principal.username"/>
                     <button data-activates='login-dropdown'
-                            class="waves-effect waves-light dropdown-button btn light-blue darken-4 z-depth-3">
+                            class="waves-effect waves-light dropdown-button btn light-blue darken-4 z-depth-3 mW300px">
                       <i class="material-icons right ">arrow_drop_down</i>${username}
                     </button>
 
@@ -106,11 +106,13 @@
                                 <i class="material-icons">assignment_ind</i><span><spring:message code="header.menu.profile"/></span>
                             </a>
                         </li>
-                        <li>
-                            <a href="<c:url value="/admin/menu"/>" class="light-blue-text darken-4">
-                                <i class="material-icons">security</i><span><spring:message code="header.menu.admin"/></span>
-                            </a>
-                        </li>
+                        <c:if test="${isUserAdmin}">
+                            <li>
+                                <a href="<c:url value="/admin/menu"/>" class="light-blue-text darken-4">
+                                    <i class="material-icons">security</i><span><spring:message code="header.menu.admin"/></span>
+                                </a>
+                            </li>
+                        </c:if>
                         <li class="divider"></li>
                         <li>
                             <a href="<c:url value="/logout"/>" class="light-blue-text darken-4">

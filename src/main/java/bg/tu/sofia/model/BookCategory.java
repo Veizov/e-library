@@ -8,6 +8,7 @@ import java.util.Objects;
 public class BookCategory {
     private Integer id;
     private String name;
+    private String nameEn;
 
     @Id
     @GeneratedValue(generator = "book_category_id_seq")
@@ -31,17 +32,28 @@ public class BookCategory {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "name_en")
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookCategory that = (BookCategory) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name);
+                Objects.equals(name, that.name) &&
+                Objects.equals(nameEn, that.nameEn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, nameEn);
     }
 }

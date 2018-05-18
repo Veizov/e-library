@@ -20,6 +20,12 @@ $(document).ready(function () {
 
     $('select').material_select();
     $('.modal').modal();
+    $('#delete-book-modal').modal({
+            complete: function() {
+                $('#delete-book-confirm-btn').data('id','')
+            } // Callback for Modal close
+        }
+    );
 });
 
 function myTimer() {

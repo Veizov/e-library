@@ -1,4 +1,3 @@
-
 $("body").on("click", "#clear-btn", function (e) {
     searchBookAjax();
     $('.books-filter').val('');
@@ -7,14 +6,47 @@ $("body").on("click", "#clear-btn", function (e) {
 $("body").on("click", "#search-btn", function (e) {
     var title = $("#title-filter").val();
     var author = $("#author-filter").val();
-    var yearFrom = $("#year-from-filter").val();
-    var yearTo = $("#year-to-filter").val();
+    var dateFrom = $("#date-from-filter").val();
+    var dateTo = $("#date-to-filter").val();
     var category = $("#category-filter").val();
 
-    searchBookAjax(null, null, title, author, yearFrom, yearTo, category)
+    searchBookAjax(null, null, title, author, dateFrom, dateTo, category)
 });
 
-function searchBookAjax(sortColumn, sortOrder, title, author, yearFrom, yearTo, category) {
+$("body").on("click", "#delete-book-btn", function (e) {
+    var bookID = $(this).data('id');
+    $('#delete-book-confirm-btn').data('id',bookID);
+    $('#delete-book-modal').modal('open');
+});
+
+$("body").on("click", "#delete-book-confirm-btn", function (e) {
+    var bookID = $(this).data('id');
+    var page = $("#request-page").val();
+    var pageSize = $("#request-page-size").val();
+
+    $('.preloader').show();
+    $.ajax({
+        url: '/e-library/delete-book',
+        type: "POST",
+        datatype: 'html',
+        data: {
+            bookID: bookID,
+            page: page,
+            pageSize: pageSize
+        },
+        success: function (data) {
+            $("#search-book-div").empty();
+            $("#search-book-div").append(data);
+            $('.preloader').hide();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            $('.preloader').hide();
+            $('#error-modal').modal('open');
+        }
+    });
+});
+
+function searchBookAjax(sortColumn, sortOrder, title, author, dateFrom, dateTo, category) {
     $('.preloader').show();
     $.ajax({
         url: '/e-library/book-list-filter',
@@ -25,8 +57,8 @@ function searchBookAjax(sortColumn, sortOrder, title, author, yearFrom, yearTo, 
             sortOrder: sortOrder,
             title: title,
             author: author,
-            yearFrom: yearFrom,
-            yearTo: yearTo,
+            dateFrom: dateFrom,
+            dateTo: dateTo,
             category: category
         },
         success: function (data) {
@@ -55,4 +87,29 @@ $("body").on("click", "#search-book-div .table-sorter", function (e) {
     var category = $("#session-filter-category").val();
 
     searchBookAjax(sortColumn, sortOrder, title, author, yearFrom, yearTo, category)
+});
+
+
+$('.datepicker').pickadate({
+    max: true,
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Днес',
+    clear: 'Изчисти',
+    close: 'ОК',
+    format: 'dd.mm.yyyy',
+    closeOnClear: true,
+    closeOnSelect: true, // Close upon selecting a date,
+    labelMonthNext: 'Следващ месец',
+    labelMonthPrev: 'Предишен месец',
+    labelMonthSelect: 'Изберете месец',
+    labelYearSelect: 'Изберете година',
+    monthsFull: [ 'Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни', 'Юли', 'Август', 'Септември', 'Октомври', 'Ноември', 'Декември' ],
+    monthsShort: [ 'Яну', 'Фев', 'Мар', 'Апр', 'Май', 'Юни', 'Юли', 'Авг', 'Сеп', 'Окт', 'Ное', 'Дек' ],
+    weekdaysFull: [ 'Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота' ],
+    weekdaysShort: [ 'Нед', 'Пон', 'Вто', 'Сря', 'Чет', 'Пет', 'Съб' ],
+    weekdaysLetter: [ 'Н', 'П', 'В', 'С', 'Ч', 'П', 'С' ],
+    onClose: function() {
+        $(document.activeElement).blur();
+    }
 });
