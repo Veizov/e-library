@@ -14,6 +14,7 @@ public class Book {
     private BookCategory category;
     private Blobs file;
     private Blobs cover;
+    private Integer numberOfPages;
     private Date createdDate;
 
     @Id
@@ -97,6 +98,16 @@ public class Book {
 
     public void setCategory(BookCategory category) {
         this.category = category;
+    }
+
+    @Basic
+    @Column(name = "number_of_pages")
+    public Integer getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(Integer numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
     @Basic

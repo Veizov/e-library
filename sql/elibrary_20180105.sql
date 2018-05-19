@@ -119,6 +119,7 @@ CREATE TABLE public.book
   category integer,
   file integer,
   cover integer,
+  number_of_pages integer,
   created_date timestamp with time zone NOT NULL DEFAULT now(),
   CONSTRAINT book_pkey PRIMARY KEY (id)
 )

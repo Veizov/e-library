@@ -8,6 +8,7 @@ import bg.tu.sofia.service.BookService;
 import bg.tu.sofia.utils.FileUtils;
 import bg.tu.sofia.utils.Utils;
 import bg.tu.sofia.validator.BookValidator;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,7 @@ public class CreateBookController {
             if (null == bookCoverContent || MIN_BYTE_ARRAY_LENGTH > bookCoverContent.length)
                 book.setCover(null);
 
+            book.setNumberOfPages(Utils.getNumberOfPages(book.getFile().getContent()));
             book.setCreatedDate(new Date());
             bookService.save(book);
 
