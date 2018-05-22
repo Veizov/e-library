@@ -48,7 +48,7 @@ public class PublicController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String register(Model model) {
 
-        return "public/view";
+        return "public/home";
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
@@ -131,4 +131,12 @@ public class PublicController {
         SearchBookFilter sessionFilter = (SearchBookFilter) request.getSession().getAttribute("searchBookFilter");
         return getBookListFiltered(model, request, sessionFilter, pageSize, page, true);
     }
+
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    public String feedback(Model model, @PathVariable("id") Integer id) {
+        Book book = bookService.findById(id);
+        model.addAttribute(book);
+        return "public/view-book";
+    }
+
 }

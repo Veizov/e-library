@@ -114,12 +114,14 @@ CREATE TABLE public.book
   id serial NOT NULL,
   title character varying(255),
   author character varying(255),
+  isbn character varying(13),
   description text,
   year smallint,
   category integer,
+  language character varying(2),
   file integer,
-  cover integer,
   number_of_pages integer,
+  cover integer,
   created_date timestamp with time zone NOT NULL DEFAULT now(),
   CONSTRAINT book_pkey PRIMARY KEY (id)
 )
@@ -174,4 +176,26 @@ ALTER TABLE public.book
       REFERENCES public.book_category (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-INSERT INTO public.book_category  (name,name_en) VALUES ('Друго','Other');
+-- Table: public.language
+
+-- DROP TABLE public.language;
+
+CREATE TABLE public.language
+(
+  id character varying(2) NOT NULL,
+  name character varying(255),
+  name_en character varying(255),
+  CONSTRAINT language_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.language
+  OWNER TO postgres;
+
+
+ALTER TABLE public.book
+  ADD CONSTRAINT "FK_language_book" FOREIGN KEY (language) REFERENCES public.language (id)
+   ON UPDATE NO ACTION ON DELETE NO ACTION;
+CREATE INDEX "FKI_language_book"
+  ON public.book(language);

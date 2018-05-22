@@ -32,12 +32,12 @@
         <thead>
         <tr>
             <th class="w15px"><spring:message code="table.number"/></th>
-            <th><spring:message code="label.cover"/></th>
+            <th class="w150px"><spring:message code="label.cover"/></th>
             <th data-sort="title" class="table-sorter"><spring:message code="label.title"/></th>
             <th data-sort="category" class="table-sorter"><spring:message code="label.category"/></th>
             <th data-sort="size" class="table-sorter"><spring:message code="table.size"/></th>
             <th data-sort="date" class="table-sorter"><spring:message code="label.date.created"/></th>
-            <th class="align-center-i w50px"><spring:message code="table.options"/></th>
+            <th class="align-center-i"><spring:message code="table.options"/></th>
         </tr>
         </thead>
         <tbody>
@@ -48,12 +48,10 @@
                     <div>
                         <c:choose>
                             <c:when test="${not empty book.cover.id}">
-                                <img class="materialboxed table-cover-image"
-                                     src='<c:url value="/cover-image/${book.cover.id}"/>'/>
+                                <img class="table-cover-image" src='<c:url value="/cover-image/${book.cover.id}"/>'/>
                             </c:when>
                             <c:otherwise>
-                                <img class="materialboxed table-cover-image"
-                                     src='<c:url value="/resources/images/NoBookCover.png"/>'/>
+                                <img class="table-cover-image" src='<c:url value="/resources/images/NoBookCover.png"/>'/>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -62,21 +60,27 @@
                 <td><c:out value="${book.category.name}"/></td>
                 <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${(book.file.filesize / 1024)/1024}" /> MB</td>
                 <td><fmt:formatDate timeZone="Europe/Sofia" pattern="dd.MM.yyyy HH:mm:ss" value="${book.createdDate}"/></td>
-                <td class="no-padding w50px">
-                    <a class="mR5px" href="javascript:void(0)" title="<spring:message code="btn.view"/>">
-                        <img class="img24 " src="<c:url value="/resources/images/preview-icon.png"/>"/>
-                    </a>
-                    <a class="mR5px" href="<c:url value="/download-file/${book.file.id}"/>" title="<spring:message code="btn.download"/>">
-                        <img class="img24" src="<c:url value="/resources/images/download-icon.png"/>"/>
-                    </a>
-                    <c:if test="${isUserAdmin}">
-                        <a class="mR5px" href="<c:url value="/admin/create-book?id=${book.id}"/>" title="<spring:message code="btn.edit"/>">
-                            <img class="img24" src="<c:url value="/resources/images/edit-icon.png"/>"/>
+                <td class="">
+                    <div>
+                        <a class="mR5px" href="<c:url value="/book/${book.id}"/>"
+                           title="<spring:message code="btn.view"/>">
+                            <img class="img24 " src="<c:url value="/resources/images/preview-icon.png"/>"/>
                         </a>
-                        <a id="delete-book-btn" class="mR5px" href="javascript:void(0)" title="<spring:message code="btn.delete"/>" data-id="${book.id}">
-                            <img class="img24" src="<c:url value="/resources/images/delete-icon.png"/>"/>
+                        <a class="mR5px" href="<c:url value="/download-file/${book.file.id}"/>"
+                           title="<spring:message code="btn.download"/>">
+                            <img class="img24" src="<c:url value="/resources/images/download-icon.png"/>"/>
                         </a>
-                    </c:if>
+                        <c:if test="${isUserAdmin}">
+                            <a class="mR5px" href="<c:url value="/admin/create-book?id=${book.id}"/>"
+                               title="<spring:message code="btn.edit"/>">
+                                <img class="img24" src="<c:url value="/resources/images/edit-icon.png"/>"/>
+                            </a>
+                            <a id="delete-book-btn" class="mR5px" href="javascript:void(0)"
+                               title="<spring:message code="btn.delete"/>" data-id="${book.id}">
+                                <img class="img24" src="<c:url value="/resources/images/delete-icon.png"/>"/>
+                            </a>
+                        </c:if>
+                    </div>
                 </td>
             </tr>
         </c:forEach>
@@ -96,8 +100,3 @@
         <input type="hidden" value="${pageSize}" id="request-page-size"/>
     </div>
 </c:if>
-<script>
-    $(document).ready(function () {
-        $('.materialboxed').materialbox();
-    });
-</script>

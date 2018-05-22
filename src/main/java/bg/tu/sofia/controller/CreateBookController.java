@@ -3,12 +3,13 @@ package bg.tu.sofia.controller;
 import bg.tu.sofia.model.Blobs;
 import bg.tu.sofia.model.Book;
 import bg.tu.sofia.model.BookCategory;
+import bg.tu.sofia.model.Language;
 import bg.tu.sofia.service.BookCategoryService;
 import bg.tu.sofia.service.BookService;
+import bg.tu.sofia.service.LanguageService;
 import bg.tu.sofia.utils.FileUtils;
 import bg.tu.sofia.utils.Utils;
 import bg.tu.sofia.validator.BookValidator;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,9 @@ public class CreateBookController {
     @Autowired
     private BookCategoryService categoryService;
 
+    @Autowired
+    private LanguageService languageService;
+
     @RequestMapping(value = "/create-book", method = RequestMethod.GET)
     public String createBook(HttpServletRequest request, Model model, @RequestParam(value = "id", required = false) Integer bookID) {
         Book book = bookService.findById(bookID);
@@ -78,6 +82,9 @@ public class CreateBookController {
 
         List<BookCategory> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
+
+        List<Language> languages = languageService.findAll();
+        model.addAttribute("languages", languages);
         return "admin/create-book";
     }
 

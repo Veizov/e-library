@@ -9,9 +9,11 @@ public class Book {
     private Integer id;
     private String title;
     private String author;
+    private String isbn;
     private String description;
     private Short year;
     private BookCategory category;
+    private Language language;
     private Blobs file;
     private Blobs cover;
     private Integer numberOfPages;
@@ -47,6 +49,16 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Basic
+    @Column(name = "isbn")
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     @Basic
@@ -119,6 +131,16 @@ public class Book {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "language")
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     @Override

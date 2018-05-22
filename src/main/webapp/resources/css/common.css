@@ -433,6 +433,18 @@ span.gototop {
     max-height: 100px;
 }
 
+.view-book-cover {
+    max-width: 100%;
+    height: auto;
+    /*max-width: 183px;*/
+    /*max-height: 275px;*/
+}
+
+.materialboxed.view-book-cover.initialized.active {
+    max-width: none;
+    max-height: none;
+}
+
 .alert {
     padding: 15px;
     padding-right: 15px;
@@ -525,6 +537,18 @@ span.gototop {
     fill: #01579b !important;
 }
 
-button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus,.picker__nav--prev:hover, .picker__nav--next:hover {
+button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus, .picker__nav--prev:hover, .picker__nav--next:hover {
     background-color: #d1d1d1;
+}
+
+.cover-border {
+    border: 1px solid gray;
+    padding: 2px;
+}
+
+.view-tab {
+    width: 80%;
+    margin-left: 5%;
+    margin-bottom: 2%
+
 }

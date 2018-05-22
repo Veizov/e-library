@@ -102,9 +102,13 @@
                     </div>
                 </div>
                 <div class="row mB0">
-                    <div class="input-field col s12">
+                    <div class="input-field  col s4">
+                        <input type="text" id="new-book-isbn" name="isbn" value="${book.isbn}">
+                        <label for="new-book-year" class=""><spring:message code="label.isbn"/></label>
+                        <form:errors path="isbn" cssClass="message-error"/>
+                    </div>
+                    <div class="input-field col s4">
                         <select name="category.id">
-                            <option value=''><spring:message code="label.select.default"/></option>
                             <c:forEach var="category" items="${categories}">
                                 <option value='${category.id}'
                                         <c:if test="${category.id eq book.category.id}">
@@ -115,6 +119,19 @@
                         </select>
                         <label><spring:message code="label.category"/></label>
                         <form:errors path="category.id" cssClass="message-error"/>
+                    </div>
+                    <div class="input-field col s4">
+                        <select name="language.id">
+                            <c:forEach var="language" items="${languages}">
+                                <option value='${language.id}'
+                                        <c:if test="${language.id eq book.language.id}">
+                                            <c:out value="selected='selected'"/>
+                                        </c:if>
+                                >${language.name}</option>
+                            </c:forEach>
+                        </select>
+                        <label><spring:message code="label.language"/></label>
+                        <form:errors path="language.id" cssClass="message-error"/>
                     </div>
                 </div>
                 <div class="row">
