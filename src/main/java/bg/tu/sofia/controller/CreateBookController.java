@@ -13,6 +13,7 @@ import bg.tu.sofia.validator.BookValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -119,9 +122,16 @@ public class CreateBookController {
             byte[] bookCoverContent = book.getCover().getContent();
             if (null == bookCoverContent || MIN_BYTE_ARRAY_LENGTH > bookCoverContent.length)
                 book.setCover(null);
+            Date currentDate = new Date();
+            if (Objects.isNull(book.getId()))
+                book.setCreatedDate(currentDate);
+            else {
+                Book databaseBook = bookService.findById(book.getId());
+                book.setCreatedDate(Objects.nonNull(databaseBook) ? databaseBook.getCreatedDate() : null);
+            }
 
+            book.setLastUpdate(currentDate);
             book.setNumberOfPages(Utils.getNumberOfPages(book.getFile().getContent()));
-            book.setCreatedDate(new Date());
             bookService.save(book);
 
             request.getSession().removeAttribute("coverImage");
@@ -212,11 +222,10 @@ public class CreateBookController {
                     Map<String, Integer> notImportedBooks = new HashMap<>();
 
                     int maxIterations = (pdfFilesCount / PDF_FILES_PER_ITERATION) + 1;
-                    for (int skip, i = 0; i < maxIterations ; i++) {
+                    for (int skip, i = 0; i < maxIterations; i++) {
                         skip = i * PDF_FILES_PER_ITERATION;
-                        List<File> filePart = FileUtils.getPdfFiles(path, skip,PDF_FILES_PER_ITERATION);
+                        List<File> filePart = FileUtils.getPdfFiles(path, skip, PDF_FILES_PER_ITERATION);
                         for (int j = 0; j < filePart.size(); j++) {
-                            progress = (100 * (j + skip + 1) / pdfFilesCount);
                             File file = filePart.get(j);
                             String bookTitle = file.getName().replaceAll(".pdf", "");
                             List<Book> sameBooks = bookService.findByTitleAndFileSize(bookTitle, Math.toIntExact(file.length()));
@@ -226,6 +235,7 @@ public class CreateBookController {
                                 importedBooks.put(file.getName(), Math.toIntExact(file.length()));
                             } else
                                 notImportedBooks.put(file.getName(), Math.toIntExact(file.length()));
+                            progress = (100 * (j + skip + 1) / pdfFilesCount);
                         }
                     }
                     model.addAttribute("importedBooks", importedBooks);

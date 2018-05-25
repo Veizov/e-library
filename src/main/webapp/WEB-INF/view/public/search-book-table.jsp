@@ -96,6 +96,12 @@
         <input type="hidden" value="${sessionScope.get('searchBookFilter').yearFrom}" id="session-filter-yearFrom"/>
         <input type="hidden" value="${sessionScope.get('searchBookFilter').yearTo}" id="session-filter-yearTo"/>
         <input type="hidden" value="${sessionScope.get('searchBookFilter').category}" id="session-filter-category"/>
+        <input type="hidden" value="${sessionScope.get('searchBookFilter').language}" id="session-filter-language"/>
+        <input type="hidden" value="${sessionScope.get('searchBookFilter').dateFrom}" id="session-filter-dateFrom"/>
+        <input type="hidden" value="${sessionScope.get('searchBookFilter').dateTo}" id="session-filter-dateTo"/>
+        <input type="hidden" value="${sessionScope.get('searchBookFilter').isbn}" id="session-filter-isbn"/>
+        <input type="hidden" value="${sessionScope.get('searchBookFilter').numberOfPagesFrom}" id="session-filter-page-number-from"/>
+        <input type="hidden" value="${sessionScope.get('searchBookFilter').numberOfPagesTo}" id="session-filter-page-number-to"/>
         <input type="hidden" value="${page}" id="request-page"/>
         <input type="hidden" value="${pageSize}" id="request-page-size"/>
     </div>

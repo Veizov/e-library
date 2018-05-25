@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Role {
     private Integer id;
     private String name;
+    private boolean containByUser;
 
     @Id
     @GeneratedValue(generator = "role_id_seq")
@@ -33,6 +34,15 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Transient
+    public boolean isContainByUser() {
+        return containByUser;
+    }
+
+    public void setContainByUser(boolean containByUser) {
+        this.containByUser = containByUser;
     }
 
     @Override

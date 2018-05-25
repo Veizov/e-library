@@ -20,6 +20,9 @@ WITH (
 ALTER TABLE public."user"
   OWNER TO postgres;
 
+ALTER TABLE public."user"
+  ADD UNIQUE (email);
+
 
 -- Table: public.role
 
@@ -123,6 +126,7 @@ CREATE TABLE public.book
   number_of_pages integer,
   cover integer,
   created_date timestamp with time zone NOT NULL DEFAULT now(),
+  last_update timestamp with time zone NOT NULL,
   CONSTRAINT book_pkey PRIMARY KEY (id)
 )
 WITH (

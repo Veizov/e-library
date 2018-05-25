@@ -9,9 +9,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.Calendar;
+import java.util.Objects;
+
 @Component
 public class BookValidator implements Validator {
 
+    private static final int MIN_YEAR = 1960;
     private static final int DESCRIPTION_LIMIT = 2000;
     private static final int ISBN_LENGTH_FROM_ISO_OLD = 10;
     private static final int ISBN_LENGTH_FROM_ISO_2007 = 13;
@@ -26,6 +30,7 @@ public class BookValidator implements Validator {
         Book book = (Book) target;
         String description = book.getDescription();
         String isbn = book.getIsbn();
+        Short year = book.getYear();
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "empty.field.valid");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "empty.field.valid");
@@ -44,6 +49,9 @@ public class BookValidator implements Validator {
             else if (isbn.length() != ISBN_LENGTH_FROM_ISO_2007 && isbn.length() != ISBN_LENGTH_FROM_ISO_OLD)
                 errors.rejectValue("isbn", "error.isbn.length");
         }
+
+        if (Objects.nonNull(year) && (year < MIN_YEAR || year > Calendar.getInstance().get(Calendar.YEAR)))
+            errors.rejectValue("year", "error.year.format");
 
     }
 }

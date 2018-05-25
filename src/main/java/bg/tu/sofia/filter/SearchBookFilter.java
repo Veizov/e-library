@@ -17,6 +17,10 @@ public class SearchBookFilter {
     private String sortOrder;
     private Date dateFrom;
     private Date dateTo;
+    private String language;
+    private String isbn;
+    private Integer numberOfPagesFrom;
+    private Integer numberOfPagesTo;
 
 
     public String getTitle() {
@@ -26,7 +30,6 @@ public class SearchBookFilter {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public String getAuthor() {
         return author;
@@ -98,5 +101,37 @@ public class SearchBookFilter {
 
     public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public Integer getNumberOfPagesFrom() {
+        return numberOfPagesFrom;
+    }
+
+    public void setNumberOfPagesFrom(Integer numberOfPagesFrom) {
+        this.numberOfPagesFrom = numberOfPagesFrom;
+    }
+
+    public Integer getNumberOfPagesTo() {
+        return numberOfPagesTo;
+    }
+
+    public void setNumberOfPagesTo(Integer numberOfPagesTo) {
+        this.numberOfPagesTo = numberOfPagesTo;
     }
 }

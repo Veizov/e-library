@@ -44,9 +44,9 @@ public class BookCustomImpl extends ABaseCustom implements BookCustom {
                 queryBuilder.append(" AND (UPPER(l.title) LIKE UPPER(:title)) ");
             if (!StringUtils.isEmpty(filter.getAuthor()))
                 queryBuilder.append(" AND (UPPER(l.author) LIKE UPPER(:author)) ");
-            if (!StringUtils.isEmpty(filter.getYearFrom()))
+            if (Objects.nonNull(filter.getYearFrom()))
                 queryBuilder.append(" AND l.year >= :yearFrom ");
-            if (!StringUtils.isEmpty(filter.getYearTo()))
+            if (Objects.nonNull(filter.getYearTo()))
                 queryBuilder.append(" AND l.year <= :yearTo ");
             if (!StringUtils.isEmpty(filter.getCategory()))
                 queryBuilder.append(" AND l.category.name = :category ");
@@ -54,6 +54,14 @@ public class BookCustomImpl extends ABaseCustom implements BookCustom {
                 queryBuilder.append(" AND (l.createdDate >= :createdDateFrom) ");
             if (Objects.nonNull(filter.getDateTo()))
                 queryBuilder.append(" AND (l.createdDate <= :createdDateTo) ");
+            if (!StringUtils.isEmpty(filter.getLanguage()))
+                queryBuilder.append(" AND l.language.id = :language ");
+            if (!StringUtils.isEmpty(filter.getIsbn()))
+                queryBuilder.append(" AND l.isbn LIKE :isbn ");
+            if (Objects.nonNull(filter.getNumberOfPagesFrom()))
+                queryBuilder.append(" AND l.numberOfPages >= :numberOfPagesFrom ");
+            if (Objects.nonNull(filter.getNumberOfPagesTo()))
+                queryBuilder.append(" AND l.numberOfPages <= :numberOfPagesTo ");
 
             if (!StringUtils.isEmpty(filter.getSortColumn()) && !StringUtils.isEmpty(filter.getSortOrder()) && !isCount) {
                 String[] columns = SorterUtils.bookSorterColumnMap().get(filter.getSortColumn()).split(",");
@@ -77,9 +85,9 @@ public class BookCustomImpl extends ABaseCustom implements BookCustom {
                 query.setParameter("title", "%" + filter.getTitle() + "%");
             if (!StringUtils.isEmpty(filter.getAuthor()))
                 query.setParameter("author", "%" + filter.getAuthor() + "%");
-            if (!StringUtils.isEmpty(filter.getYearFrom()))
+            if (Objects.nonNull(filter.getYearFrom()))
                 query.setParameter("yearFrom", filter.getYearFrom());
-            if (!StringUtils.isEmpty(filter.getYearTo()))
+            if (Objects.nonNull(filter.getYearTo()))
                 query.setParameter("yearTo", filter.getYearTo());
             if (!StringUtils.isEmpty(filter.getCategory()))
                 query.setParameter("category", filter.getCategory());
@@ -87,6 +95,14 @@ public class BookCustomImpl extends ABaseCustom implements BookCustom {
                 query.setParameter("createdDateFrom", filter.getDateFrom());
             if (Objects.nonNull(filter.getDateTo()))
                 query.setParameter("createdDateTo", Utils.endOfDate(filter.getDateTo()));
+            if (!StringUtils.isEmpty(filter.getLanguage()))
+                query.setParameter("language", filter.getLanguage());
+            if (!StringUtils.isEmpty(filter.getIsbn()))
+                query.setParameter("isbn", "%" + filter.getIsbn() + "%");
+            if (Objects.nonNull(filter.getNumberOfPagesFrom()))
+                query.setParameter("numberOfPagesFrom", filter.getNumberOfPagesFrom());
+            if (Objects.nonNull(filter.getNumberOfPagesTo()))
+                query.setParameter("numberOfPagesTo", filter.getNumberOfPagesTo());
 
         }
     }

@@ -30,12 +30,14 @@ public class Utils {
 
     public static Book convertFileToBook(File file, String bookTitle, BookCategory category) throws IOException {
         Book book = new Book();
+        Date currentDate = new Date();
         Blobs blobs = FileUtils.convertPdfFile(file);
         book.setFile(blobs);
         book.setTitle(bookTitle);
         book.setCategory(category);
-        book.setCreatedDate(new Date());
         book.setNumberOfPages(getNumberOfPages(blobs.getContent()));
+        book.setCreatedDate(currentDate);
+        book.setLastUpdate(currentDate);
         return book;
     }
 

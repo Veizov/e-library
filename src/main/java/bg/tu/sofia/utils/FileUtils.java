@@ -24,7 +24,7 @@ public class FileUtils {
                 String encodedFileName = URLEncoder.encode(blob.getFilename(), "UTF-8").replaceAll("\\+", " ");
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType(blob.getContentType());
-                response.setHeader("Content-disposition", "attachment; filename=" + encodedFileName);
+                response.setHeader("Content-Disposition","attachment; filename=\"" + encodedFileName + "\"");
                 response.getOutputStream().write(blob.getContent());
                 response.flushBuffer();
             } catch (IOException e) {

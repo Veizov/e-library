@@ -51,7 +51,7 @@
 
                         <div class="col s4">
                             <label><spring:message code="label.language"/></label>
-                            <p><c:out value="${book.language}"/></p>
+                            <p><c:out value="${book.language.name}"/></p>
                         </div>
                     </div>
                     <div class="row">

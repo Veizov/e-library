@@ -4,6 +4,7 @@ import bg.tu.sofia.filter.SearchBookFilter;
 import bg.tu.sofia.model.Book;
 import bg.tu.sofia.service.BookCategoryService;
 import bg.tu.sofia.service.BookService;
+import bg.tu.sofia.service.LanguageService;
 import bg.tu.sofia.service.UserService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class PublicController {
     @Autowired
     private BookCategoryService categoryService;
 
+    @Autowired
+    private LanguageService languageService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd.MM.yyyy"), true, 10));
@@ -59,6 +63,7 @@ public class PublicController {
         int total = bookService.countBooks(null);
 
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("languages", languageService.findAll());
         model.addAttribute("books", books);
         model.addAttribute("booksTotal", total);
         model.addAttribute("page", DEFAULT_PAGE);

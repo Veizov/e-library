@@ -18,6 +18,7 @@ public class Book {
     private Blobs cover;
     private Integer numberOfPages;
     private Date createdDate;
+    private Date lastUpdate;
 
     @Id
     @GeneratedValue(generator = "book_id_seq")
@@ -131,6 +132,17 @@ public class Book {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Basic
+    @Column(name = "last_update")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     @OneToOne

@@ -25,14 +25,21 @@
 
         <div class="" style="padding: 20px;">
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <input type="text" id="title-filter" class="books-filter">
                     <label for="title-filter"><spring:message code="label.title"/></label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s4">
                     <input type="text" id="author-filter" class="books-filter">
                     <label for="author-filter"><spring:message code="label.author"/></label>
                 </div>
+                <div class="input-field col s4">
+                    <input type="text" id="isbn-filter" class="books-filter">
+                    <label for="isbn-filter"><spring:message code="label.isbn.short"/></label>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="input-field col s3">
                     <input type="text" id="date-from-filter" class="books-filter datepicker">
                     <label for="date-from-filter"><spring:message code="label.date.from"/></label>
@@ -41,9 +48,19 @@
                     <input type="text" id="date-to-filter" class="books-filter datepicker">
                     <label for="date-to-filter"><spring:message code="label.date.to"/></label>
                 </div>
+
+                <div class="input-field col s3">
+                    <input type="text" id="year-from-filter" class="books-filter">
+                    <label for="year-from-filter"><spring:message code="label.year.from"/></label>
+                </div>
+                <div class="input-field col s3">
+                    <input type="text" id="year-to-filter" class="books-filter">
+                    <label for="year-to-filter"><spring:message code="label.year.to"/></label>
+                </div>
             </div>
+
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s3">
                     <select id="category-filter">
                         <option value=''><spring:message code="label.select.default"/></option>
                         <c:forEach var="category" items="${categories}">
@@ -52,8 +69,28 @@
                     </select>
                     <label><spring:message code="label.category"/></label>
                 </div>
+                <div class="input-field col s3">
+                    <select id="language-filter">
+                        <option value=''><spring:message code="label.select.default"/></option>
+                        <c:forEach var="language" items="${languages}">
+                            <option value='${language.id}'>${language.name}</option>
+                        </c:forEach>
+                    </select>
+                    <label><spring:message code="label.language"/></label>
+                </div>
+
+
+                <div class="input-field col s3">
+                    <input type="text" id="page-number-from-filter" class="books-filter">
+                    <label for="page-number-from-filter"><spring:message code="label.page.number.from"/></label>
+                </div>
+                <div class="input-field col s3">
+                    <input type="text" id="page-number-to-filter" class="books-filter">
+                    <label for="page-number-to-filter"><spring:message code="label.page.number.to"/></label>
+                </div>
 
             </div>
+
             <div class="float-right mB2em">
                 <button id="search-btn" type="button" class="waves-effect waves-light btn light-blue darken-4">
                     <i class="material-icons left">search</i><spring:message code="btn.search"/>

@@ -18,7 +18,7 @@
 
 <div class="container main-content">
     <div class="z-depth-2 white mT2em p50px">
-        <img class="right mT-15px img70" src="<c:url value="/resources/images/human-resources.png"/>"/>
+        <img class="right mT-15px img70" src="<c:url value="/resources/images/settings-icon-flat-5.jpg"/>"/>
         <div class="section-title"><spring:message code="title.administration.module"/></div>
 
         <ul class="collapsible popout" data-collapsible="accordion">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="collapsible-body">
                     <span><spring:message code="text.roles.admin"/></span>
-                    <a href="#" class="right waves-effect waves-light btn light-blue darken-4" id="add-role-btn"><spring:message code="btn.edit"/></a>
+                    <a href="<c:url value="/admin/roles"/>" class="right waves-effect waves-light btn light-blue darken-4" id="add-role-btn"><spring:message code="btn.edit"/></a>
                 </div>
             </li>
         </ul>

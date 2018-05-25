@@ -9,8 +9,14 @@ $("body").on("click", "#search-btn", function (e) {
     var dateFrom = $("#date-from-filter").val();
     var dateTo = $("#date-to-filter").val();
     var category = $("#category-filter").val();
+    var language = $("#language-filter").val();
+    var isbn = $("#isbn-filter").val();
+    var yearFrom = $("#year-from-filter").val();
+    var yearTo = $("#year-to-filter").val();
+    var numberOfPagesFrom = $("#page-number-from-filter").val();
+    var numberOfPagesTo = $("#page-number-to-filter").val();
 
-    searchBookAjax(null, null, title, author, dateFrom, dateTo, category)
+    searchBookAjax(null, null, title, author, dateFrom, dateTo, category, language, isbn, yearFrom, yearTo, numberOfPagesFrom, numberOfPagesTo)
 });
 
 $("body").on("click", "#delete-book-btn", function (e) {
@@ -46,7 +52,7 @@ $("body").on("click", "#delete-book-confirm-btn", function (e) {
     });
 });
 
-function searchBookAjax(sortColumn, sortOrder, title, author, dateFrom, dateTo, category) {
+function searchBookAjax(sortColumn, sortOrder, title, author, dateFrom, dateTo, category, language, isbn, yearFrom, yearTo, numberOfPagesFrom, numberOfPagesTo) {
     $('.preloader').show();
     $.ajax({
         url: '/e-library/book-list-filter',
@@ -59,7 +65,13 @@ function searchBookAjax(sortColumn, sortOrder, title, author, dateFrom, dateTo, 
             author: author,
             dateFrom: dateFrom,
             dateTo: dateTo,
-            category: category
+            category: category,
+            language: language,
+            isbn: isbn,
+            yearFrom: yearFrom,
+            yearTo: yearTo,
+            numberOfPagesFrom: numberOfPagesFrom,
+            numberOfPagesTo: numberOfPagesTo
         },
         success: function (data) {
             $("#search-book-div").empty();
@@ -85,8 +97,14 @@ $("body").on("click", "#search-book-div .table-sorter", function (e) {
     var yearFrom = $("#session-filter-yearFrom").val();
     var yearTo = $("#session-filter-yearTo").val();
     var category = $("#session-filter-category").val();
+    var language = $("#session-filter-language").val();
+    var dateFrom = $("#session-filter-dateFrom").val();
+    var dateTo = $("#session-filter-dateTo").val();
+    var isbn = $("#session-filter-isbn").val();
+    var numberOfPagesFrom = $("#session-filter-page-number-from").val();
+    var numberOfPagesTo = $("#session-filter-page-number-to").val();
 
-    searchBookAjax(sortColumn, sortOrder, title, author, yearFrom, yearTo, category)
+    searchBookAjax(sortColumn, sortOrder, title, author, dateFrom, dateTo, category, language, isbn, yearFrom, yearTo, numberOfPagesFrom, numberOfPagesTo)
 });
 
 
