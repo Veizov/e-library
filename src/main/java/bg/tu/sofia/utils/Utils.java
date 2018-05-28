@@ -41,7 +41,7 @@ public class Utils {
         return book;
     }
 
-    public static PDDocument covertToPdDocument(byte[] bytes){
+    private static PDDocument covertToPdDocument(byte[] bytes){
         PDDocument doc;
         try {
             doc = PDDocument.load(bytes);
@@ -56,7 +56,13 @@ public class Utils {
         PDDocument pdDocument = covertToPdDocument(bytes);
         if(null == pdDocument)
             return null;
-        return pdDocument.getNumberOfPages();
+        int numberOfPages = pdDocument.getNumberOfPages();
+        try {
+            pdDocument.close();
+        } catch (IOException e) {
+            LOG.error(e.getMessage(),e);
+        }
+        return numberOfPages;
     }
 
 }

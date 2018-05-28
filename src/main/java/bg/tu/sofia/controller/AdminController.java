@@ -1,7 +1,9 @@
 package bg.tu.sofia.controller;
 
+import bg.tu.sofia.model.BookCategory;
 import bg.tu.sofia.model.Role;
 import bg.tu.sofia.model.User;
+import bg.tu.sofia.service.BookCategoryService;
 import bg.tu.sofia.service.RoleService;
 import bg.tu.sofia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class AdminController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private BookCategoryService categoryService;
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public String view() {
@@ -89,6 +94,34 @@ public class AdminController {
 
         roleService.addRoleToUser(role,user);
         return getRolesPerUser(model,userById.getEmail());
+    }
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public String editBookCategories(Model model) {
+        addCategoriesToModel(model);
+        return "admin/categories";
+    }
+
+    @RequestMapping(value = "/add-category", method = RequestMethod.POST)
+    public String addCategory(Model model,@RequestParam("name") String name,@RequestParam("nameEn") String nameEn) {
+        BookCategory bookCategory = new BookCategory();
+        bookCategory.setName(name);
+        bookCategory.setNameEn(nameEn);
+        categoryService.save(bookCategory);
+        addCategoriesToModel(model);
+        return "admin/categories_table";
+    }
+
+    @RequestMapping(value = "/delete-category", method = RequestMethod.POST)
+    public String addCategory(Model model,@RequestParam("id") Integer id) {
+        categoryService.deleteBookCategory(id);
+        addCategoriesToModel(model);
+        return "admin/categories_table";
+    }
+
+    private void addCategoriesToModel(Model model) {
+        List<BookCategory> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
     }
 
 }

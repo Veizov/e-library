@@ -131,10 +131,10 @@
         <nav>
             <a href="<c:url value="/"/>" title="Начало"><spring:message code="title.home"/></a>
             <a href="<c:url value="/books"/>" title=""><spring:message code="title.books"/></a>
-            <a href=""><spring:message code="title.news"/></a>
+            <%--<a href=""><spring:message code="title.news"/></a>--%>
             <a href="<c:url value="/feedback"/>" title=""><spring:message code="title.feedback"/></a>
             <a href="<c:url value="/contacts"/>" title=""><spring:message code="title.contacts"/></a>
-            <a href="" title=""><spring:message code="title.guide"/></a>
+            <a href="#" title=""><spring:message code="title.help"/></a>
         </nav>
     </div>
     <div class="light-blue darken-4 narrow-subheader"></div>

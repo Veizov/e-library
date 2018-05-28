@@ -49,7 +49,7 @@
                 </div>
                 <div class="collapsible-body">
                     <span><spring:message code="text.edit.book.admin"/></span>
-                    <a href="#" class="right waves-effect waves-light btn light-blue darken-4" id="edit-book-btn"><spring:message code="btn.edit"/></a>
+                    <a href="<c:url value="/books"/>" class="right waves-effect waves-light btn light-blue darken-4" id="edit-book-btn"><spring:message code="btn.edit"/></a>
                 </div>
             </li>
             <li>
@@ -60,6 +60,16 @@
                 <div class="collapsible-body">
                     <span><spring:message code="text.roles.admin"/></span>
                     <a href="<c:url value="/admin/roles"/>" class="right waves-effect waves-light btn light-blue darken-4" id="add-role-btn"><spring:message code="btn.edit"/></a>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                    <i class="material-icons">list</i>
+                    <span><spring:message code="label.categories"/></span>
+                </div>
+                <div class="collapsible-body">
+                    <span><spring:message code="text.categories.admin"/></span>
+                    <a href="<c:url value="/admin/categories"/>" class="right waves-effect waves-light btn light-blue darken-4" id="edit-categories-btn"><spring:message code="btn.edit"/></a>
                 </div>
             </li>
         </ul>
