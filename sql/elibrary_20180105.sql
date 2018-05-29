@@ -4,7 +4,7 @@
 
 CREATE TABLE public."user"
 (
-  id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+  id serial NOT NULL,
   email character varying(255),
   password character varying(255),
   fname character varying(255),
@@ -30,7 +30,7 @@ ALTER TABLE public."user"
 
 CREATE TABLE public.role
 (
-  id integer NOT NULL DEFAULT nextval('role_id_seq'::regclass),
+  id serial NOT NULL,
   name character varying(255),
   CONSTRAINT role_pkey PRIMARY KEY (id)
 )
@@ -203,3 +203,28 @@ ALTER TABLE public.book
    ON UPDATE NO ACTION ON DELETE NO ACTION;
 CREATE INDEX "FKI_language_book"
   ON public.book(language);
+
+
+-- Table: public.verification_token
+
+-- DROP TABLE public.verification_token;
+
+CREATE TABLE public.verification_token
+(
+  id serial NOT NULL,
+  token text,
+  user_id integer,
+  expiry_date timestamp with time zone NOT NULL,
+  CONSTRAINT verification_token_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.verification_token
+  OWNER TO postgres;
+
+ALTER TABLE public.verification_token
+  ADD CONSTRAINT "FK_user_token" FOREIGN KEY (user_id) REFERENCES public."user" (id)
+   ON UPDATE NO ACTION ON DELETE NO ACTION;
+CREATE INDEX "FKI_user_token"
+  ON public.verification_token(user_id);

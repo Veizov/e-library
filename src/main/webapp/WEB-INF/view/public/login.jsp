@@ -32,17 +32,20 @@
                                 <label for="password"><spring:message code="label.password"/></label>
                             </div>
                             <c:if test="${error eq true}">
-                                <div class="message-error mB1em"><spring:message code="login.error.valid"/></div>
+                                <div class="message-error mB1em">${sessionScope.get("SPRING_SECURITY_LAST_EXCEPTION")}</div>
                             </c:if>
                             <div class="mB1em">
                                 <button type="submit" class="waves-effect waves-light btn light-blue darken-4"><spring:message code="label.log.in"/></button>
                             </div>
                             <div>
                                 <div>
-                                    <a href="#"><spring:message code="btn.forgotten.pass"/></a>
+                                    <a href="<c:url value="/verification/new-verification-code"/>"><spring:message code="btn.verification.code"/></a>
                                 </div>
                                 <div>
                                     <a href="<c:url value="/registration"/>" title="<spring:message code="title.register"/>"><spring:message code="btn.create.account"/></a>
+                                </div>
+                                <div>
+                                    <a href="#"><spring:message code="btn.forgotten.pass"/></a>
                                 </div>
                             </div>
                         </form>

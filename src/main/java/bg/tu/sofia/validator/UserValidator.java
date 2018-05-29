@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
 
     private static final int DESCRIPTION_LIMIT = 300;
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     @Autowired
     private UserService userService;
@@ -26,6 +27,7 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         String description = user.getDescription();
+        String email = user.getEmail();
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "empty.field.valid");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "empty.field.valid");
@@ -38,10 +40,12 @@ public class UserValidator implements Validator {
 
         User userExists = userService.findUserByEmail(user.getEmail());
         if (userExists != null)
-            errors.rejectValue("email", "error.user", "There is already a user registered with the email provided");
+            errors.rejectValue("email", "error.user.exist");
         else {
             if (!user.getPassword().equalsIgnoreCase(user.getConfirmPassword()))
                 errors.rejectValue("confirmPassword", "error.confirm", "Password don't match");
+            if (!StringUtils.isEmpty(email) && !email.matches(EMAIL_PATTERN))
+                errors.rejectValue("email", "error.email.format");
             if(!StringUtils.isEmpty(description) && description.length() > DESCRIPTION_LIMIT)
                 errors.rejectValue("description", "error.description.length", "The maximum number of allowed characters is 300");
 

@@ -51,7 +51,6 @@ public class PublicController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String register(Model model) {
-
         return "public/home";
     }
 

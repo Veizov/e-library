@@ -9,10 +9,16 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    void saveUser(User user);
+    User saveNewUser(User user);
 
     List<User> findAll();
 
     User findById(Integer id);
+
+    void createVerificationToken(User user, String token);
+
+    User save (User user);
+
+    User findByEmailAndActive(String email, Boolean active);
 
 }

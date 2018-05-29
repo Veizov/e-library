@@ -7,8 +7,10 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -63,6 +65,17 @@ public class Utils {
             LOG.error(e.getMessage(),e);
         }
         return numberOfPages;
+    }
+
+    public static Date calculateExpiryDate(int expiryTimeInMinutes) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Timestamp(cal.getTime().getTime()));
+        cal.add(Calendar.MINUTE, expiryTimeInMinutes);
+        return new Date(cal.getTime().getTime());
+    }
+
+    public static String getRequestURL(HttpServletRequest request){
+       return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
     }
 
 }

@@ -475,6 +475,12 @@ span.gototop {
     border-color: #bce8f1;
 }
 
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
 .table-sorter {
     background-image: url(../images/sort.png);
     background-repeat: no-repeat;

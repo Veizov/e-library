@@ -1,5 +1,6 @@
 package bg.tu.sofia.config;
 
+import bg.tu.sofia.security.CustomAuthenticationFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,8 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -50,13 +53,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/verification/**").permitAll()
+                .antMatchers("/registration/confirm").permitAll()
                 .antMatchers("/contacts").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").not().authenticated()
                 .antMatchers("/feedback").authenticated()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
+                .loginPage("/login").failureHandler(customAuthenticationFailureHandler)
 //                .defaultSuccessUrl("/admin/home")
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
