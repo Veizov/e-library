@@ -15,10 +15,10 @@
                     </div>
                     <div class="float-left">
                         <div class="center-align">
-                            <spring:message code="logo.sub.title"/>
+                            <spring:message code="logo.footer.tu"/>
                         </div>
                         <div class="center-align" style="font-size: 14px">
-                            <spring:message code="logo.title"/>
+                            <spring:message code="logo.footer.microelectronics"/>
                         </div>
                     </div>
                 </div>

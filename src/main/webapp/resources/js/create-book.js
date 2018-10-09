@@ -87,3 +87,8 @@ function previewFile(file, img) {
         reader.readAsDataURL(file.files[0]);
     }
 }
+
+
+$("body").on("submit", "#create-book-form", function (e) {
+    $('.preloader').show();
+});

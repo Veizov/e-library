@@ -70,12 +70,6 @@ public class PublicController {
         return "public/search-book";
     }
 
-    @RequestMapping(value = "/feedback", method = RequestMethod.GET)
-    public String feedback(Model model) {
-
-        return "public/feedback";
-    }
-
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public String contacts(Model model) {
 

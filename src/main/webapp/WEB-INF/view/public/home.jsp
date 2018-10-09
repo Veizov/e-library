@@ -16,41 +16,35 @@
                 <li>
                     <img src="<c:url value="/resources/images/slider/books-3.jpg"/>"> <!-- random image -->
                     <div class="caption center-align">
-                        <h3>This is our big Tagline!</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        <h3><spring:message code="logo.title"/></h3>
+                        <h5 class="light grey-text text-lighten-3"><spring:message code="logo.sub.title"/></h5>
                     </div>
                 </li>
                 <li>
                     <img src="<c:url value="/resources/images/slider/books-1.jpg"/>"> <!-- random image -->
                     <div class="caption left-align">
-                        <h3>Left Aligned Caption</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        <h3><spring:message code="logo.title"/></h3>
+                        <h5 class="light grey-text text-lighten-3"><spring:message code="logo.sub.title"/></h5>
                     </div>
                 </li>
                 <li>
                     <img src="<c:url value="/resources/images/slider/books-4.jpg"/>"> <!-- random image -->
                     <div class="caption right-align">
-                        <h3>Right Aligned Caption</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        <h3><spring:message code="logo.title"/></h3>
+                        <h5 class="light grey-text text-lighten-3"><spring:message code="logo.sub.title"/></h5>
                     </div>
                 </li>
                 <li>
                     <img src="<c:url value="/resources/images/slider/books-5.jpg"/>"> <!-- random image -->
                     <div class="caption left-align">
-                        <h3>Left Aligned Caption</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        <h3><spring:message code="logo.title"/></h3>
+                        <h5 class="light grey-text text-lighten-3"><spring:message code="logo.sub.title"/></h5>
                     </div>
                 </li>
             </ul>
         </div>
-
-
-
-
-
     </div>
 </div>
-
 
 <%@ include file="../common/footer.jsp" %>
 <script>

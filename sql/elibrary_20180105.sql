@@ -228,3 +228,21 @@ ALTER TABLE public.verification_token
    ON UPDATE NO ACTION ON DELETE NO ACTION;
 CREATE INDEX "FKI_user_token"
   ON public.verification_token(user_id);
+
+-- Table: public.feedback_message
+
+-- DROP TABLE public.feedback_message;
+
+CREATE TABLE public.feedback_message
+(
+  id serial NOT NULL,
+  title character varying(500),
+  text character varying(2000),
+  user_email character varying(255),
+  CONSTRAINT feedback_message_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.feedback_message
+  OWNER TO postgres;

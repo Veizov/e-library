@@ -41,7 +41,7 @@
             </c:choose>
         </div>
         <div>
-            <form:form cssClass="col s12" modelAttribute="book" action="${createBookURL}" method="post" enctype="multipart/form-data">
+            <form:form id="create-book-form" cssClass="col s12" modelAttribute="book" action="${createBookURL}" method="post" enctype="multipart/form-data">
                 <div class="row float-left mB0">
                     <div class="input-field col">
                         <label id="cover-image-label" for="image-file" class="custom-file-upload mB1em cover-image-label

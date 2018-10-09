@@ -22,30 +22,30 @@
         <img width="70" height="70" class="right mT-15px" src="<c:url value="/resources/images/maps.png"/>"/>
         <div class="section-title"><spring:message code="title.contacts"/></div>
 
+
+        <div id="map" class="float-left" style="width: 70%; height: 600px;"></div>
         <div class="mB1em row">
-            <div class="display-inline-block col s6">
-                <div>
+            <div class="display-inline-block col s3">
+                <div class="mB1em">
                     <i class="material-icons prefix v-middle">phone</i>
                     <span><spring:message code="contacts.phone"/></span>
                 </div>
-                <div>
+                <div class="mB1em">
                     <i class="material-icons prefix v-middle">mail</i>
                     <span><spring:message code="contacts.mail"/></span>
                 </div>
             </div>
-            <div class="display-inline-block col s6">
-                <div>
+            <div class="display-inline-block col s3">
+                <div class="mB1em">
                     <i class="material-icons prefix v-middle">website</i>
                     <a class="black-text text-lighten-3" href="https://tu-sofia.bg/" target="_blank"><spring:message code="contacts.websitr"/></a>
                 </div>
-                <div>
+                <div class="mB1em">
                     <i class="material-icons prefix v-middle">location_on</i>
                     <span><spring:message code="contacts.address"/></span>
                 </div>
             </div>
         </div>
-        <div id="map" style="width: 100%; height: 600px;"></div>
-
     </div>
     <span class="" style="clear: both;"></span>
 </div>
