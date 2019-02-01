@@ -24,11 +24,11 @@
                     <div class="p50px-i col s6 offset-s3 z-depth-1 white" id="panell">
                         <form>
                             <div class="input-field" id="username">
-                                <input type="text" value="denislavveizov@gmail.com" name="email"/>
+                                <input type="text" name="email"/>
                                 <label for="username"><spring:message code="label.email"/></label>
                             </div>
                             <div class="input-field" id="password">
-                                <input type="password" value="mazohist" name="password"/>
+                                <input type="password" name="password"/>
                                 <label for="password"><spring:message code="label.password"/></label>
                             </div>
                             <c:if test="${error eq true}">
