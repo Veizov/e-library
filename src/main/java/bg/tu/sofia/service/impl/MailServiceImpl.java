@@ -41,4 +41,16 @@ public class MailServiceImpl implements MailService {
 
         sendMail(recipientAddress,text,subject,true);
     }
+
+    @Override
+    public void sendChangePasswordMail(String recipientAddress, String url) throws MessagingException {
+        Locale locale = LocaleContextHolder.getLocale();
+
+        String subject = messageSource.getMessage("text.change.password.title", null, locale);
+        String message = messageSource.getMessage("text.change.password.body", null, locale);
+        String linkText = messageSource.getMessage("label.here", null, locale);
+        String text = message + " <a href=" + url + ">" + linkText + "</a>";
+
+        sendMail(recipientAddress,text,subject,true);
+    }
 }

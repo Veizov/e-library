@@ -50,7 +50,7 @@ public class PublicController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String register(Model model) {
+    public String home(Model model) {
         return "public/home";
     }
 

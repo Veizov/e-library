@@ -1,10 +1,12 @@
 package bg.tu.sofia.service.impl;
 
+import bg.tu.sofia.model.ForgottenPassword;
 import bg.tu.sofia.model.Role;
 import bg.tu.sofia.model.User;
 import bg.tu.sofia.model.VerificationToken;
 import bg.tu.sofia.repository.RoleRepository;
 import bg.tu.sofia.repository.UserRepository;
+import bg.tu.sofia.service.ForgottenPasswordService;
 import bg.tu.sofia.service.UserService;
 import bg.tu.sofia.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private VerificationTokenService verificationTokenService;
+
+    @Autowired
+    private ForgottenPasswordService forgottenPasswordService;
 
     @Override
     public User findUserByEmail(String email) {
@@ -61,6 +66,12 @@ public class UserServiceImpl implements UserService {
     public void createVerificationToken(User user, String token) {
         VerificationToken myToken = new VerificationToken(token, user);
         verificationTokenService.save(myToken);
+    }
+
+    @Override
+    public void createForgottenPasswordToken(String email, String token) {
+        ForgottenPassword forgottenPasswordToken = new ForgottenPassword(token, email);
+        forgottenPasswordService.save(forgottenPasswordToken);
     }
 
     @Override

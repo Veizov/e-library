@@ -18,11 +18,15 @@
 
 <div class="container main-content">
     <div class="mT2em">
+        <c:if test="${changePasswordSuccess eq true}">
+            <div class="alert alert-success info-tab align-center">
+                <spring:message code="text.change.password.success"/>
+            </div>
+        </c:if>
         <form method="POST" action="<c:url value="/login"/>">
             <div>
-                <div class="row ">
+                <div class="row">
                     <div class="p50px-i col s6 offset-s3 z-depth-1 white" id="panell">
-                        <form>
                             <div class="input-field" id="username">
                                 <input type="text" name="email"/>
                                 <label for="username"><spring:message code="label.email"/></label>
@@ -45,10 +49,9 @@
                                     <a href="<c:url value="/registration"/>" title="<spring:message code="title.register"/>"><spring:message code="btn.create.account"/></a>
                                 </div>
                                 <div>
-                                    <a href="#"><spring:message code="btn.forgotten.pass"/></a>
+                                    <a href="<c:url value="/forgotten-password"/>"><spring:message code="btn.forgotten.pass"/></a>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>

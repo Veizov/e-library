@@ -17,6 +17,8 @@ public interface UserService {
 
     void createVerificationToken(User user, String token);
 
+    void createForgottenPasswordToken(String email, String token);
+
     User save (User user);
 
     User findByEmailAndActive(String email, Boolean active);

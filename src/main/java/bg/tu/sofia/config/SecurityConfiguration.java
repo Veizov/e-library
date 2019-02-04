@@ -58,6 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contacts").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").not().authenticated()
+                .antMatchers("/forgotten-password/**").not().authenticated()
                 .antMatchers("/feedback").authenticated()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()

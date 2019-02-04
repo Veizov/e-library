@@ -7,4 +7,7 @@ public interface MailService {
     void sendMail(String recipientAddress, String text, String subject, boolean isHtml) throws MessagingException;
 
     void sendVerificationMail(String recipientAddress, String url) throws MessagingException;
+
+    void sendChangePasswordMail(String recipientAddress, String url) throws MessagingException;
+
 }
