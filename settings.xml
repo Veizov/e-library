@@ -8,15 +8,20 @@
 			<properties>
 				<spring.active.profile>local</spring.active.profile>
 
-				<spring.datasource.url>jdbc:postgresql://localhost:5432/elibrary</spring.datasource.url>
+				<spring.datasource.url>jdbc:postgresql://localhost:5440/elibrary</spring.datasource.url>
 				<spring.datasource.username>postgres</spring.datasource.username>
-				<spring.datasource.password>admin</spring.datasource.password>
+				<spring.datasource.password>postgres</spring.datasource.password>
 
-				<spring.flyway.url>jdbc:postgresql://localhost:5432/elibrary</spring.flyway.url>
+				<spring.flyway.url>jdbc:postgresql://localhost:5440/elibrary</spring.flyway.url>
 				<spring.flyway.user>postgres</spring.flyway.user>
-				<spring.flyway.password>admin</spring.flyway.password>
+				<spring.flyway.password>postgres</spring.flyway.password>
 
-				<spring.mail.username>tu.sofia.elibrary@gmail.com</spring.mail.username>
+				<elibrary.mail.send-emails>true</elibrary.mail.send-emails>
+				<elibrary.mail.username>postmaster@sandboxe6905e65e98242aa953308dfeb3f4a31.mailgun.org</elibrary.mail.username>
+				<elibrary.mail.password>24dee984ed2cc1a1a85b5036ea27466e-8c9e82ec-18951</elibrary.mail.password>
+				<elibrary.mail.from-email>denislavveizov@gmail.com</elibrary.mail.from-email>
+				<elibrary.mail.debug>true</elibrary.mail.debug>
+
 				<spring.mail.password>101214100</spring.mail.password>
 				<spring.mail.host>smtp.gmail.com</spring.mail.host>
 				<spring.mail.port>587</spring.mail.port>

@@ -2,7 +2,6 @@ package bg.tu.sofia.validator;
 
 
 import bg.tu.sofia.model.Book;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;

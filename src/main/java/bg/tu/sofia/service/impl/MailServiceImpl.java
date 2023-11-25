@@ -1,7 +1,8 @@
 package bg.tu.sofia.service.impl;
 
+import bg.tu.sofia.property.MailPropertyAccess;
 import bg.tu.sofia.service.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,20 +11,24 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.Objects;
 
 @Component
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
-    @Autowired
-    private MessageSource messageSource;
-
-    @Autowired
-    public JavaMailSender mailSender;
+    private final MessageSource messageSource;
+    private final MailPropertyAccess mailPropertyAccess;
+    private final JavaMailSender mailSender;
 
     public void sendMail(String recipientAddress, String text, String subject, boolean isHtml) throws MessagingException {
+        if (isDisabled())
+            return;
+
         MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, StandardCharsets.UTF_8.name());
         helper.setTo(recipientAddress);
         helper.setText(text, isHtml);
         helper.setSubject(subject);
@@ -52,5 +57,14 @@ public class MailServiceImpl implements MailService {
         String text = message + " <a href=" + url + ">" + linkText + "</a>";
 
         sendMail(recipientAddress,text,subject,true);
+    }
+
+    private boolean isDisabled() {
+        return !isEmailSendingEnabled();
+    }
+
+    private boolean isEmailSendingEnabled() {
+        Boolean enabled = mailPropertyAccess.getMailSendEmails();
+        return Objects.nonNull(enabled) && enabled;
     }
 }
